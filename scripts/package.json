@@ -1,0 +1,12 @@
+{
+  "name": "image-converter",
+  "version": "1.0.0",
+  "description": "Convert JPG/PNG images to WebP format",
+  "scripts": {
+    "convert": "node convert-to-webp.js",
+    "install-deps": "npm install sharp"
+  },
+  "dependencies": {
+    "sharp": "^0.32.6"
+  }
+}
