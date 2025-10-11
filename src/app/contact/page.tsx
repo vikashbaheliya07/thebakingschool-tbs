@@ -132,8 +132,8 @@ export default function ContactPage() {
                       <p className="text-gray-600">Speak with our admissions team</p>
                     </div>
                   </div>
-                  <p className="text-xl font-semibold text-gray-800">+1 (555) 123-BAKE</p>
-                  <p className="text-gray-600">Available Monday - Saturday, 8AM - 8PM</p>
+                  <p className="text-xl font-semibold text-gray-800">+91 9876320800 or +91 9988992110</p>
+                  <p className="text-gray-600">Available Monday - Saturday, 9AM - 86M</p>
                 </CardContent>
               </Card>
 
