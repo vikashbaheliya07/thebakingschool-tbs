@@ -76,7 +76,7 @@ export default function CTASection() {
                 <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
               <h3 className="font-bold text-white mb-2 sm:mb-3 text-base sm:text-lg drop-shadow-lg">Email Us</h3>
-              <p className="text-white font-semibold text-sm sm:text-base drop-shadow-md">ceo@bakingschool.in</p>
+              <p className="text-white font-semibold text-sm sm:text-base drop-shadow-md">ceo@thebakingschool.in</p>
               <p className="text-white/90 text-xs sm:text-sm mt-1">Quick Response</p>
             </CardContent>
           </Card>

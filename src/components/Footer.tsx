@@ -116,7 +116,7 @@ export default function Footer() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 flex-shrink-0" />
-                  <span className="text-gray-300 text-sm sm:text-base">ceo@bakingschool.in</span>
+                  <span className="text-gray-300 text-sm sm:text-base">ceo@thebakingschool.in</span>
                 </div>
               </div>
 

@@ -21,7 +21,7 @@ export default function ContactPage() {
             </span>
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Ready to start your baking journey? We're here to help you every step of the way. 
+            Ready to start your baking journey? We&apos;re here to help you every step of the way. 
             Contact us today to learn more about our programs.
           </p>
         </div>
@@ -148,7 +148,7 @@ export default function ContactPage() {
                       <p className="text-gray-600">Get detailed information</p>
                     </div>
                   </div>
-                  <p className="text-xl font-semibold text-gray-800">info@bakingschool.com</p>
+                  <p className="text-xl font-semibold text-gray-800">ceo@thebakingschool.in</p>
                   <p className="text-gray-600">We respond within 24 hours</p>
                 </CardContent>
               </Card>
@@ -164,8 +164,8 @@ export default function ContactPage() {
                       <p className="text-gray-600">Schedule a tour</p>
                     </div>
                   </div>
-                  <p className="text-xl font-semibold text-gray-800">123 Baker Street</p>
-                  <p className="text-gray-600">Culinary District, Food City, FC 12345</p>
+                  <p className="text-xl font-semibold text-gray-800">The Baking School, Street no. 13, Ajit road</p>
+                  <p className="text-gray-600">Bathinda, Punjab</p>
                 </CardContent>
               </Card>
 
@@ -177,13 +177,11 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-bold text-lg">Campus Hours</h3>
-                      <p className="text-gray-600">When we're open</p>
+                      <p className="text-gray-600">When we&apos;re open</p>
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-gray-800"><span className="font-semibold">Mon-Fri:</span> 8:00 AM - 8:00 PM</p>
-                    <p className="text-gray-800"><span className="font-semibold">Saturday:</span> 9:00 AM - 6:00 PM</p>
-                    <p className="text-gray-800"><span className="font-semibold">Sunday:</span> 10:00 AM - 4:00 PM</p>
+                    <p className="text-gray-800"><span className="font-semibold"> Monday - Saturday:</span> 9:00 AM - 6:00 PM</p>
                   </div>
                 </CardContent>
               </Card>
