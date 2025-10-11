@@ -7,6 +7,7 @@ import TestimonialsSection from "@/components/TestimonialsSection"
 import FAQSection from "@/components/FAQSection"
 import CTASection from "@/components/CTASection"
 import Footer from "@/components/Footer"
+import YouTubeEmbed from "@/components/YoutubeFrame"
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <AboutSection />
         <FeaturesSection />
         <CoursesSection />
+        <YouTubeEmbed videoId="dQw4w9WgXcQ" autoplay={false} />
         <TestimonialsSection />
         <FAQSection />
         <CTASection />
