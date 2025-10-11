@@ -205,9 +205,6 @@ export default function CoursesPage() {
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-xl sm:text-2xl font-bold text-gradient">
-                      {course.price}
-                    </span>
                     <BookingForm preSelectedCourse={course.title}>
                       <Button className="gradient-yellow-blue text-white hover:scale-105 transition-transform duration-300 text-sm px-4 py-2">
                         Enroll Now

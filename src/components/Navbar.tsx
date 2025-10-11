@@ -12,7 +12,6 @@ const navItems = [
   { name: "Courses", href: "/courses" },
   { name: "Gallery", href: "/gallery" },
   { name: "Blog", href: "/blog" },
-  { name: "Certification", href: "/certification" },
   { name: "Contact", href: "/contact" },
   { name: "Success Stories", href: "/success-stories" },
 ]
