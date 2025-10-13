@@ -56,18 +56,6 @@ const allCourses = [
     certificate: true
   },
   {
-    title: "French Patisserie",
-    description: "Learn classical French techniques including croissants, macarons, and elegant pastries from traditional recipes.",
-    duration: "12 weeks",
-    students: "8",
-    rating: "4.9",
-    price: "₹74,999",
-    image: "https://images.unsplash.com/photo-1555507036-ab794f4ade2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    level: "Advanced",
-    lessons: 48,
-    certificate: true
-  },
-  {
     title: "Chocolate & Confections",
     description: "Master chocolate tempering, truffle making, and artisan confectionery techniques. Create beautiful bonbons and pralines.",
     duration: "6 weeks",
@@ -102,18 +90,6 @@ const allCourses = [
     level: "Intermediate",
     lessons: 20,
     certificate: true
-  },
-  {
-    title: "International Breads",
-    description: "Explore bread traditions from around the world. Learn to make naan, bagels, pretzels, and more.",
-    duration: "7 weeks",
-    students: "8",
-    rating: "4.9",
-    price: "₹41,699",
-    image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    level: "Intermediate",
-    lessons: 28,
-    certificate: true
   }
 ]
 
@@ -126,7 +102,7 @@ export default function CoursesPage() {
       <section className="pt-20 pb-12 sm:pt-24 sm:pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto py-20 px-6 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 sm:mb-6">
             Our
             <span className="dancing-script text-yellow-300 text-5xl sm:text-6xl md:text-8xl block">

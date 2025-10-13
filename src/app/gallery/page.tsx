@@ -23,13 +23,6 @@ import {
 // Example gallery data - mix of external URLs and local WebP images
 const initialGalleryImages = [
   {
-    id: 1,
-    title: "Artisan Croissants",
-    category: "Pastries",
-    image: "https://images.unsplash.com/photo-1555507036-ab794f4ade2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Buttery, flaky croissants made with traditional French techniques"
-  },
-  {
     id: 2,
     title: "Wedding Cake Masterpiece",
     category: "Cakes",

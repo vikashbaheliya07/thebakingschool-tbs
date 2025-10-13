@@ -107,9 +107,17 @@ export default function Footer() {
               <h3 className="text-white font-semibold text-base sm:text-lg mb-4 sm:mb-6">Contact Info</h3>
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-start space-x-3">
-                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-300 text-sm sm:text-base">The Baking School, street no. 13, Ajit road, Bathinda, Punjab.</span>
-                </div>
+  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 mt-0.5 flex-shrink-0" />
+  <a
+    href="https://www.google.com/maps?q=The+Baking+School,+street+no.+13,+Ajit+road,+Bathinda,+Punjab"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gray-300 hover:text-yellow-300 transition-colors duration-300 text-sm sm:text-base underline-offset-2 hover:underline"
+  >
+    The Baking School, street no. 13, Ajit road, Bathinda, Punjab
+  </a>
+</div>
+
                 <div className="flex items-center space-x-3">
                   <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 flex-shrink-0" />
                   <span className="text-gray-300 text-sm sm:text-base">98763-20800, 99889-92110</span>
