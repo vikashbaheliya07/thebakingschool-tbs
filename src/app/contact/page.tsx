@@ -133,7 +133,7 @@ export default function ContactPage() {
                     </div>
                   </div>
                   <p className="text-xl font-semibold text-gray-800">+91 9876320800 or +91 9988992110</p>
-                  <p className="text-gray-600">Available Monday - Saturday, 9AM - 86M</p>
+                  <p className="text-gray-600">Available Monday - Saturday, 9AM - 6PM</p>
                 </CardContent>
               </Card>
 
