@@ -4,12 +4,12 @@ import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from "luci
 
 const footerLinks = {
   courses: [
-    { name: "Basic Baking", href: "/courses/basic" },
-    { name: "Artisan Bread", href: "/courses/bread" },
-    { name: "Pastry Arts", href: "/courses/pastry" },
-    { name: "Wedding Cakes", href: "/courses/wedding" },
-    { name: "French Patisserie", href: "/courses/french" },
-    { name: "Chocolate Making", href: "/courses/chocolate" },
+    { name: "Fundamental Baker Course", href: "/courses/fundamental-baker" },
+    { name: "Intermediate Baker Course", href: "/courses/intermediate-baker" },
+    { name: "Professional Baker Course", href: "/courses/professional-baker" },
+    { name: "Advanced Baker Course", href: "/courses/advanced-baker" },
+    { name: "Expert Baker Course", href: "/courses/expert-baker" },
+    { name: "Master Baker Course", href: "/courses/master-baker" },
   ],
   quickLinks: [
     { name: "About Us", href: "/about" },

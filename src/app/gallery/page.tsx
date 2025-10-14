@@ -11,7 +11,6 @@ import { PermissionGuard, AuthenticatedOnly } from "@/components/RoleBasedAccess
 import { AuthLogin } from "@/components/AuthLogin"
 import { RoleBasedDashboard } from "@/components/RoleBasedDashboard"
 import { Permission } from "@/types/auth"
-import { Shield } from "lucide-react"
 import { 
   loadGalleryImages, 
   saveGalleryImages, 

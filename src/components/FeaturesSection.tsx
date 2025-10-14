@@ -59,15 +59,11 @@ export default function FeaturesSection() {
           </div>
           <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
             <div className="glass rounded-xl p-4 text-center border-white/20">
-              <div className="text-2xl font-bold text-gradient mb-1">500+</div>
+              <div className="text-2xl font-bold text-gradient mb-1">300+</div>
               <div className="text-gray-600 text-sm">Students</div>
             </div>
             <div className="glass rounded-xl p-4 text-center border-white/20">
-              <div className="text-2xl font-bold text-gradient mb-1">15+</div>
-              <div className="text-gray-600 text-sm">Expert Chefs</div>
-            </div>
-            <div className="glass rounded-xl p-4 text-center border-white/20">
-              <div className="text-2xl font-bold text-gradient mb-1">50+</div>
+              <div className="text-2xl font-bold text-gradient mb-1">10+</div>
               <div className="text-gray-600 text-sm">Courses</div>
             </div>
             <div className="glass rounded-xl p-4 text-center border-white/20">

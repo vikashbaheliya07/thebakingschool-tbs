@@ -46,7 +46,7 @@ export const testimonials = [
     text: "I completed the 3 Months Professional Baker Course at The Baking School and had a great learning experience. The training and support I received helped me start my own home bakery, and now I'm earning a good side income. Truly thankful to The Baking School for helping me turn my skills into profit!"
   },
   {
-    name: "Manish Middha",
+    name: "Akarshan Kukkar",
     role: "Home Baker",
     image: "👨‍🍳",
     rating: 5,

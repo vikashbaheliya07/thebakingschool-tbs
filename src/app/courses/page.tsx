@@ -8,99 +8,99 @@ import { BookingForm } from "@/components/BookingForm"
 
 const allCourses = [
   {
-    title: "Basic Baking Fundamentals",
-    description: "Perfect for beginners. Learn essential techniques, ingredient knowledge, and basic recipes including cookies, muffins, and simple cakes.",
-    duration: "4 weeks",
+    title: "Fundamental Baker Course",
+    description:
+      "Learn the basics of baking, different types of cakes, and dry cakes. Perfect for beginners who want a strong foundation. 100% VEGAN — we don’t even use eggs in anything.",
+    duration: "1 month",
     students: "12",
     rating: "4.9",
     price: "₹24,999",
-    image: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    image:
+      "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1000&q=80",
     level: "Beginner",
     lessons: 16,
-    certificate: true
+    certificate: true,
   },
   {
-    title: "Artisan Bread Making",
-    description: "Master the art of sourdough, focaccia, and traditional bread making techniques. Learn fermentation, shaping, and scoring.",
-    duration: "6 weeks",
-    students: "8",
-    rating: "4.8",
-    price: "₹37,499",
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    level: "Intermediate",
-    lessons: 24,
-    certificate: true
-  },
-  {
-    title: "Pastry & Dessert Arts",
-    description: "Create stunning pastries, cakes, and desserts. Master cream puffs, éclairs, tarts, and elegant plated desserts.",
-    duration: "8 weeks",
+    title: "Intermediate Baker Course",
+    description:
+      "Includes everything from the Fundamental Course plus a variety of chocolates, advanced cake designing, cookies, brownies, and laminated dough. 100% VEGAN — we don’t even use eggs in anything.",
+    duration: "2 months",
     students: "10",
     rating: "4.9",
-    price: "₹49,999",
-    image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    level: "Advanced",
-    lessons: 32,
-    certificate: true
-  },
-  {
-    title: "Wedding Cake Design",
-    description: "Specialize in creating beautiful, multi-tier wedding cakes. Learn fondant work, sugar flowers, and advanced decorating.",
-    duration: "10 weeks",
-    students: "6",
-    rating: "5.0",
-    price: "₹66,999",
-    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    level: "Professional",
-    lessons: 40,
-    certificate: true
-  },
-  {
-    title: "Chocolate & Confections",
-    description: "Master chocolate tempering, truffle making, and artisan confectionery techniques. Create beautiful bonbons and pralines.",
-    duration: "6 weeks",
-    students: "10",
-    rating: "4.8",
-    price: "₹45,999",
-    image: "https://images.unsplash.com/photo-1511381939415-e44015466834?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    price: "₹39,999",
+    image:
+      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=80",
     level: "Intermediate",
     lessons: 24,
-    certificate: true
+    certificate: true,
   },
   {
-    title: "Gluten-Free Baking",
-    description: "Learn to create delicious gluten-free breads, cakes, and pastries without compromising on taste or texture.",
-    duration: "5 weeks",
-    students: "12",
-    rating: "4.7",
-    price: "₹33,299",
-    image: "https://images.unsplash.com/photo-1574085733277-851d9d856a3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    level: "Intermediate",
-    lessons: 20,
-    certificate: true
-  },
-  {
-    title: "Vegan Baking Mastery",
-    description: "Discover plant-based baking techniques and create amazing vegan desserts, breads, and pastries.",
-    duration: "5 weeks",
+    title: "Professional Baker Course",
+    description:
+      "Covers everything from the Fundamental and Intermediate Courses plus two-tier cakes, nutritional baking, fondant cakes, bread baking, and doughnuts. 100% VEGAN — we don’t even use eggs in anything.",
+    duration: "3 months",
     students: "10",
-    rating: "4.8",
-    price: "₹33,299",
-    image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    level: "Intermediate",
-    lessons: 20,
-    certificate: true
-  }
+    rating: "5.0",
+    price: "₹54,999",
+    image:
+      "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1000&q=80",
+    level: "Advanced",
+    lessons: 32,
+    certificate: true,
+  },
+  {
+    title: "Advanced Baker Course",
+    description:
+      "Covers the Fundamental, Intermediate, and Professional Courses plus buttercream, cheesecakes, advanced dry cakes, tarts & pies, and advanced breads. 100% VEGAN — we don’t even use eggs in anything.",
+    duration: "4 months",
+    students: "8",
+    rating: "5.0",
+    price: "₹69,999",
+    image:
+      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=80",
+    level: "Professional",
+    lessons: 40,
+    certificate: true,
+  },
+  {
+    title: "Expert Baker Course",
+    description:
+      "Includes everything from the Fundamental to Advanced Courses plus viennoiseries, shakes, mocktails, barista skills, ice cream, wraps, advanced cookies, pasta, and macarons. 100% VEGAN — we don’t even use eggs in anything.",
+    duration: "5 months",
+    students: "6",
+    rating: "5.0",
+    price: "₹84,999",
+    image:
+      "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=1000&q=80",
+    level: "Expert",
+    lessons: 48,
+    certificate: true,
+  },
+  {
+    title: "Master Baker Course",
+    description:
+      "Includes everything from the Fundamental to Expert Courses plus industrial tours, industrial training, internship opportunities, and business mentorship. 100% VEGAN — we don’t even use eggs in anything.",
+    duration: "6 months",
+    students: "6",
+    rating: "5.0",
+    price: "₹99,999",
+    image:
+      "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=1000&q=80",
+    level: "Master",
+    lessons: 60,
+    certificate: true,
+  },
 ]
 
 export default function CoursesPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="pt-20 pb-12 sm:pt-24 sm:pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
         <div className="relative z-10 max-w-7xl mx-auto py-20 px-6 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 sm:mb-6">
@@ -110,8 +110,8 @@ export default function CoursesPage() {
             </span>
           </h1>
           <p className="text-base sm:text-xl text-white/90 max-w-sm sm:max-w-2xl mx-auto px-2 sm:px-0 leading-relaxed">
-            From beginner basics to professional mastery, find the perfect course 
-            to match your baking aspirations and skill level.
+            From beginner to master, explore our complete range of professional
+            baking programs — all 100% VEGAN with absolutely no eggs used.
           </p>
         </div>
       </section>
@@ -119,11 +119,14 @@ export default function CoursesPage() {
       {/* Courses Grid */}
       <section className="py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-blue-50"></div>
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {allCourses.map((course, index) => (
-              <Card key={index} className="glass border-white/20 hover:scale-105 transition-all duration-300 overflow-hidden group">
+              <Card
+                key={index}
+                className="glass border-white/20 hover:scale-105 transition-all duration-300 overflow-hidden group"
+              >
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={course.image}
@@ -145,7 +148,7 @@ export default function CoursesPage() {
                     </CardTitle>
                   </div>
                 </div>
-                
+
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
                     <div className="flex items-center gap-1">
@@ -162,12 +165,12 @@ export default function CoursesPage() {
                     </div>
                   </div>
                 </CardHeader>
-                
+
                 <CardContent className="pt-0 px-4 sm:px-6">
                   <p className="text-gray-600 mb-4 leading-relaxed text-sm">
                     {course.description}
                   </p>
-                  
+
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                     <div className="flex items-center gap-1">
                       <Award className="w-4 h-4" />
@@ -179,7 +182,7 @@ export default function CoursesPage() {
                       </div>
                     )}
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <BookingForm preSelectedCourse={course.title}>
                       <Button className="gradient-yellow-blue text-white hover:scale-105 transition-transform duration-300 text-sm px-4 py-2">

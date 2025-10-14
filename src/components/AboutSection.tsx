@@ -220,10 +220,10 @@ export default function AboutSection() {
             <div className="space-y-6">
               <div className="space-y-4">
                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                  Crafting Culinary Dreams Since 2009
+                  Crafting Baking Dreams Since 2023
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Crafting Culinary Dreams Since 2023: Founded with a vision to be a leading institution that empowers individuals through exceptional Baking education, nurturing creativity, Skill development, and professional growth, ultimately contributing to the Global Baking Industry with Innovative and skilled professionals.
+                  Crafting Baking Dreams Since 2023: Founded with a vision to be a leading institution that empowers individuals through exceptional Baking education, nurturing creativity, Skill development, and professional growth, ultimately contributing to the Global Baking Industry with Innovative and skilled professionals.
                 </p>
                 <p className="text-gray-600 leading-relaxed">
                   We aim to create a supportive and inclusive learning environment, promote sustainable practices, and inspire a passion for baking that transcends borders, preparing our graduates to meet the growing demand for baking professionals around the world.
