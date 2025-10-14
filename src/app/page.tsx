@@ -9,6 +9,7 @@ import CTASection from "@/components/CTASection"
 import Footer from "@/components/Footer"
 import YouTubeEmbed from "@/components/YoutubeFrame"
 import { AuthLogin } from "@/components/AuthLogin"
+import AffiliationSection from "@/components/AffiliationSection"
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <AboutSection />
         <FeaturesSection />
         <CoursesSection />
+        <AffiliationSection />
         <YouTubeEmbed videoId="dQw4w9WgXcQ" autoplay={false} />
         <TestimonialsSection />
         <FAQSection />
