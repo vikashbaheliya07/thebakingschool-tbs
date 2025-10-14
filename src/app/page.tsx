@@ -8,12 +8,14 @@ import FAQSection from "@/components/FAQSection"
 import CTASection from "@/components/CTASection"
 import Footer from "@/components/Footer"
 import YouTubeEmbed from "@/components/YoutubeFrame"
+import { AuthLogin } from "@/components/AuthLogin"
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Navbar />
       <main>
+        <AuthLogin /> 
         <HeroSection />
         <AboutSection />
         <FeaturesSection />
