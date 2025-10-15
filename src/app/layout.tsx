@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import FloatingSocials from "@/components/FloatingIcons";
 
 export const metadata: Metadata = {
   title: "The Baking School - Master the Art of Baking",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className="antialiased" suppressHydrationWarning>
         <AuthProvider>
         {children}
+        <FloatingSocials />
         </AuthProvider>
       </body>
     </html>

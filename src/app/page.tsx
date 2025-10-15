@@ -19,9 +19,9 @@ export default function Home() {
         <AuthLogin /> 
         <HeroSection />
         <AboutSection />
+        <AffiliationSection />
         <FeaturesSection />
         <CoursesSection />
-        <AffiliationSection />
         <YouTubeEmbed videoId="dQw4w9WgXcQ" autoplay={false} />
         <TestimonialsSection />
         <FAQSection />
