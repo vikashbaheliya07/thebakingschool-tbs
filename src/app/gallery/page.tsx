@@ -18,81 +18,10 @@ import {
   validateImageFile,
   type GalleryImage 
 } from "@/utils/galleryStorage"
+import { studentGalleryImages } from "@/utils/galleryConfig"
 
 // Example gallery data - mix of external URLs and local WebP images
-const initialGalleryImages = [
-  {
-    id: 2,
-    title: "Wedding Cake Masterpiece",
-    category: "Cakes",
-    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Elegant three-tier wedding cake with delicate sugar flowers"
-  },
-  {
-    id: 3,
-    title: "Fresh Sourdough Bread",
-    category: "Breads",
-    image: "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Artisan sourdough with perfect crust and airy crumb structure"
-  },
-  {
-    id: 4,
-    title: "Chocolate Truffles",
-    category: "Confections",
-    image: "https://images.unsplash.com/photo-1511381939415-e44015466834?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Handcrafted chocolate truffles with various premium coatings"
-  },
-  {
-    id: 5,
-    title: "Colorful Macarons",
-    category: "Pastries",
-    image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Delicate French macarons in vibrant colors and flavors"
-  },
-  {
-    id: 6,
-    title: "Rustic Apple Pie",
-    category: "Pies",
-    image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Classic apple pie with golden lattice crust and cinnamon filling"
-  },
-  {
-    id: 7,
-    title: "Gourmet Cupcakes",
-    category: "Cupcakes",
-    image: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Artisanal cupcakes with creative frosting and decorations"
-  },
-  {
-    id: 8,
-    title: "Artisan Bagels",
-    category: "Breads",
-    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Hand-rolled bagels with various seeds and toppings"
-  },
-  {
-    id: 9,
-    title: "Elegant Tarts",
-    category: "Pastries",
-    image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description: "Beautiful fruit tarts with pastry cream and seasonal fruits"
-  },
-  // Example of local WebP images (uncomment when you add actual WebP files)
-  // {
-  //   id: 10,
-  //   title: "Student Creation - Chocolate Cake",
-  //   category: "Student Work",
-  //   image: "/gallery/cakes/chocolate-cake.webp",
-  //   description: "Amazing chocolate cake created by our advanced student"
-  // },
-  // {
-  //   id: 11,
-  //   title: "Fresh Baked Croissants",
-  //   category: "Student Work", 
-  //   image: "/gallery/pastries/croissants.webp",
-  //   description: "Perfect croissants from our morning baking class"
-  // }
-]
+const initialGalleryImages = studentGalleryImages
 
 function GalleryPageContent() {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>(initialGalleryImages)
@@ -216,7 +145,7 @@ function GalleryPageContent() {
               <p className="text-gray-600">Loading gallery...</p>
             </div>
           ) : (
-            <GalleryGrid images={galleryImages} />
+            <GalleryGrid images={initialGalleryImages} />
           )}
         </div>
       </section>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -12,9 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { Calendar, Clock, User, ArrowRight, BookOpen, Plus, Edit, Trash2 } from "lucide-react"
+import { Calendar, Clock, User, ArrowRight, BookOpen, Edit, Trash2 } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import { AuthProvider } from "@/contexts/AuthContext"
 import { PermissionGuard, AuthenticatedOnly } from "@/components/RoleBasedAccess"
 import { AuthLogin } from "@/components/AuthLogin"
@@ -89,10 +88,10 @@ function BlogPageContent() {
     alert(`Edit post ${postId} - This would open an edit form in a real application`)
   }
 
-  const handleCreatePost = () => {
-    // In a real app, this would open a create modal or navigate to create page
-    alert("Create new post - This would open a create form in a real application")
-  }
+ // const handleCreatePost = () => {
+  // In a real app, this would open a create modal or navigate to create page
+  //  alert("Create new post - This would open a create form in a real application")
+  // }
 
   const handleReadFullArticle = (post: typeof blogPosts[0]) => {
     setSelectedPost(post)

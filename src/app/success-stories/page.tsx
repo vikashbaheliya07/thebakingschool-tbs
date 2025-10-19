@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Star, Quote, MapPin, Calendar, Award } from "lucide-react"
+import { Star, MapPin, Calendar, Award } from "lucide-react"
 import { ChefHatIcon } from "@/components/icons/BakingIcons"
 import Image from "next/image"
 
@@ -13,8 +13,8 @@ const successStories = [
     role: "Professional Baker & Bakery Owner",
     location: "New York, NY",
     graduationYear: "2022",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-    story: "After completing the Professional Baking Certificate, I opened 'Sarah's Sweet Corner' in Manhattan. The comprehensive training I received gave me the confidence and skills to turn my passion into a thriving business. We now serve over 500 customers daily!",
+    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?auto=format&fit=crop&w=400&q=80",
+    video: "https://www.youtube.com/embed/dQw4w9WgXcQ", // random video
     achievement: "Opened successful bakery with 12 employees",
     course: "Professional Baking Certificate",
     rating: 5
@@ -25,8 +25,8 @@ const successStories = [
     role: "Head Pastry Chef",
     location: "San Francisco, CA",
     graduationYear: "2021",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-    story: "The French Patisserie course completely transformed my career. I went from working in a small café to becoming the Head Pastry Chef at a Michelin-starred restaurant. The techniques I learned here are invaluable.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
+    video: "https://www.youtube.com/embed/ysz5S6PUM-U",
     achievement: "Head Pastry Chef at Michelin-starred restaurant",
     course: "French Patisserie Advanced",
     rating: 5
@@ -37,8 +37,8 @@ const successStories = [
     role: "Wedding Cake Designer",
     location: "Los Angeles, CA",
     graduationYear: "2023",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-    story: "The Wedding Cake Design course gave me specialized skills that set me apart in the industry. I now design custom cakes for celebrity weddings and high-end events. My booking calendar is full for the next 18 months!",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
+    video: "https://www.youtube.com/embed/tgbNymZ7vqY",
     achievement: "Celebrity wedding cake designer",
     course: "Wedding Cake Design",
     rating: 5
@@ -49,8 +49,8 @@ const successStories = [
     role: "Restaurant Owner",
     location: "Chicago, IL",
     graduationYear: "2020",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-    story: "I enrolled to improve my restaurant's dessert menu. The Chocolate & Confections course exceeded my expectations. Our dessert sales increased by 40%, and we've won several local food awards for our dessert program.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    video: "https://www.youtube.com/embed/J---aiyznGQ",
     achievement: "40% increase in dessert sales, multiple awards",
     course: "Chocolate & Confections",
     rating: 5
@@ -61,8 +61,8 @@ const successStories = [
     role: "Artisan Baker",
     location: "Portland, OR",
     graduationYear: "2022",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-    story: "At 45, I decided to follow my dream of becoming a baker. The supportive environment and comprehensive curriculum made the career transition smooth. I now supply artisan breads to 15 local restaurants and farmers markets.",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    video: "https://www.youtube.com/embed/oHg5SJYRHA0",
     achievement: "Supplies 15 restaurants with artisan breads",
     course: "Artisan Bread Specialist",
     rating: 5
@@ -73,8 +73,8 @@ const successStories = [
     role: "YouTube Baking Instructor",
     location: "Austin, TX",
     graduationYear: "2021",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-    story: "The skills I learned here helped me create a successful YouTube channel with over 2 million subscribers. I teach traditional baking techniques to home bakers worldwide. The foundation I got here was crucial to my success.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    video: "https://www.youtube.com/embed/l482T0yNkeo",
     achievement: "2M+ YouTube subscribers, online baking educator",
     course: "Professional Baking Certificate",
     rating: 5
@@ -88,7 +88,7 @@ export default function SuccessStoriesPage() {
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
@@ -140,6 +140,8 @@ export default function SuccessStoriesPage() {
                       <Image
                         src={story.image} 
                         alt={story.name}
+                        width={80}
+                        height={80}
                         className="w-20 h-20 rounded-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                       <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center">
@@ -166,12 +168,16 @@ export default function SuccessStoriesPage() {
                       </div>
                     </div>
                   </div>
-                  
-                  <div className="relative mb-6">
-                    <Quote className="w-8 h-8 text-yellow-400/30 absolute -top-2 -left-2" />
-                    <p className="text-gray-700 leading-relaxed italic pl-6">
-                      {story.story}
-                    </p>
+
+                  {/* Embedded YouTube Video */}
+                  <div className="mb-6 aspect-video overflow-hidden rounded-xl shadow-lg">
+                    <iframe
+                      src={story.video}
+                      title={story.name}
+                      className="w-full h-full rounded-xl"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
                   </div>
                   
                   <div className="space-y-3">

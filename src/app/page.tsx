@@ -8,15 +8,15 @@ import FAQSection from "@/components/FAQSection"
 import CTASection from "@/components/CTASection"
 import Footer from "@/components/Footer"
 import YouTubeEmbed from "@/components/YoutubeFrame"
-import { AuthLogin } from "@/components/AuthLogin"
 import AffiliationSection from "@/components/AffiliationSection"
+import { EmailCaptureModal } from "@/components/EmailCapture"
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Navbar />
       <main>
-        <AuthLogin /> 
+        <EmailCaptureModal />
         <HeroSection />
         <AboutSection />
         <AffiliationSection />
