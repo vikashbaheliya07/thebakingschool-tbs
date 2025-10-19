@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -33,14 +33,6 @@ export function AuthLogin() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
   const [loginLoading, setLoginLoading] = useState(false)
-
-  // ✅ Automatically open login popup after 5 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isAuthenticated) setIsOpen(true)
-    }, 5000)
-    return () => clearTimeout(timer)
-  }, [isAuthenticated])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
