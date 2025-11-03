@@ -31,17 +31,20 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-3">
-              <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20">
                 <Image
                   src="/thebakingschool.webp"
                   alt="The Baking School Logo"
                   fill
-                  sizes="(max-width: 640px) 40px, 48px"
+                  sizes="(max-width: 640px) 64px, 80px"
                   className="object-contain"
                   priority
                 />
               </div>
-              <span className="text-lg sm:text-2xl font-bold dancing-script text-gray-800">
+              <span
+                className="text-lg sm:text-xl font-bold text-gray-800 tracking-tight"
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
                 The Baking School
               </span>
             </Link>
@@ -65,13 +68,13 @@ export default function Navbar() {
           {/* Book Your Seat Button */}
           <div className="hidden lg:block">
             <BookingForm>
-              <Button className="gradient-yellow-blue text-white font-semibold px-4 xl:px-6 py-2 rounded-full hover:scale-105 transition-transform duration-300 text-sm">
+              <Button className="gradient-yellow-blue text-white font-semibold px-5 xl:px-7 py-2.5 rounded-full hover:scale-105 transition-transform duration-300 text-sm">
                 Book Your Seat
               </Button>
             </BookingForm>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}

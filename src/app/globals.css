@@ -70,18 +70,19 @@
     @apply backdrop-blur-lg bg-white/5 border-b border-white/10 shadow-xl;
   }
   
-  .gradient-yellow-blue {
-    background: linear-gradient(135deg, #fbbf24 0%, #3b82f6 100%);
+    .gradient-yellow-blue {
+    /* Saffron Yellow → Soft Blue */
+    background: linear-gradient(135deg, #F4A900 0%, #5C6BC0 100%);
   }
-  
+
   .gradient-blue-yellow {
-    background: linear-gradient(135deg, #3b82f6 0%, #fbbf24 100%);
+    /* Soft Blue → Saffron Yellow */
+    background: linear-gradient(135deg, #5C6BC0 0%, #F4A900 100%);
   }
-  
-  .text-gradient {
-    @apply bg-gradient-to-r from-amber-400 to-blue-600 bg-clip-text text-transparent;
-  }
-  
+
+.text-gradient { @apply bg-gradient-to-r from-amber-400 to-blue-600 bg-clip-text text-transparent; }
+
+
   .dancing-script {
     font-family: 'Dancing Script', cursive;
   }
