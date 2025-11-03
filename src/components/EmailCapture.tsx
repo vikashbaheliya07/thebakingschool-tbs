@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Mail} from "lucide-react"
+import { Mail } from "lucide-react"
 
 export function EmailCaptureModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -41,11 +41,12 @@ export function EmailCaptureModal() {
     }
 
     try {
-      const res = await fetch("/api/save-email", {
+      const res = await fetch("/api/contacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, mobile: mobile || null }),
+        body: JSON.stringify({ email, mobile }),
       })
+
       const data = await res.json()
 
       if (res.ok) {
@@ -115,8 +116,18 @@ export function EmailCaptureModal() {
 
               {/* Message */}
               {message && (
-                <Alert className={message.includes("✅") ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"}>
-                  <AlertDescription className={message.includes("✅") ? "text-green-600" : "text-red-600"}>
+                <Alert
+                  className={
+                    message.includes("✅")
+                      ? "bg-green-50 border-green-200"
+                      : "bg-red-50 border-red-200"
+                  }
+                >
+                  <AlertDescription
+                    className={
+                      message.includes("✅") ? "text-green-600" : "text-red-600"
+                    }
+                  >
                     {message}
                   </AlertDescription>
                 </Alert>

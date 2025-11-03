@@ -21,27 +21,27 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
-import { 
-  Plus, 
-  Edit, 
-  Trash2, 
+import {
+  Plus,
+  Edit,
+  Trash2,
   Save,
   BookOpen,
   Calendar,
   User,
-  Tag
 } from "lucide-react"
 
-interface BlogPost {
-  id: number
+// ✅ unified type
+export type BlogPost = {
+  _id: string
   title: string
   excerpt: string
   content: string
+  category: string
+  image: string
   author: string
   date: string
   readTime: string
-  category: string
-  image: string
   featured: boolean
 }
 
@@ -50,34 +50,41 @@ interface BlogManagerProps {
   onPostsUpdate: (posts: BlogPost[]) => void
 }
 
-const categories = ["Tips & Tricks", "Science", "Recipes", "Success Stories", "Techniques", "Health"]
+const categories = [
+  "Tips & Tricks",
+  "Science",
+  "Recipes",
+  "Success Stories",
+  "Techniques",
+  "Health",
+]
 
 export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null)
   const [isCreating, setIsCreating] = useState(false)
-  
+
   const [formData, setFormData] = useState({
-    title: '',
-    excerpt: '',
-    content: '',
-    author: '',
-    category: '',
-    image: '',
-    featured: false
+    title: "",
+    excerpt: "",
+    content: "",
+    author: "",
+    category: "",
+    image: "",
+    featured: false,
   })
 
   const handleCreatePost = () => {
     setIsCreating(true)
     setEditingPost(null)
     setFormData({
-      title: '',
-      excerpt: '',
-      content: '',
-      author: '',
-      category: '',
-      image: '',
-      featured: false
+      title: "",
+      excerpt: "",
+      content: "",
+      author: "",
+      category: "",
+      image: "",
+      featured: false,
     })
     setIsOpen(true)
   }
@@ -92,18 +99,21 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
       author: post.author,
       category: post.category,
       image: post.image,
-      featured: post.featured
+      featured: post.featured,
     })
     setIsOpen(true)
   }
 
-  const handleDeletePost = (postId: number) => {
+  const handleDeletePost = async (postId?: string) => {
+    if (!postId) return
     if (confirm("Are you sure you want to delete this blog post?")) {
-      onPostsUpdate(posts.filter(post => post.id !== postId))
+      await fetch(`/api/blogs/${postId}`, { method: "DELETE" })
+      const updated = posts.filter((p) => p._id !== postId)
+      onPostsUpdate(updated)
     }
   }
 
-  const handleSavePost = () => {
+  const handleSavePost = async () => {
     if (!formData.title.trim() || !formData.excerpt.trim() || !formData.category) {
       alert("Please fill in all required fields")
       return
@@ -111,33 +121,44 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
 
     const postData = {
       ...formData,
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split("T")[0],
       readTime: `${Math.ceil(formData.content.length / 200)} min read`,
-      image: formData.image || "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image:
+        formData.image ||
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1000&q=80",
     }
 
+    let response
     if (isCreating) {
-      const newPost: BlogPost = {
-        ...postData,
-        id: Math.max(...posts.map(p => p.id), 0) + 1
-      }
-      onPostsUpdate([...posts, newPost])
-    } else if (editingPost) {
-      onPostsUpdate(posts.map(post => 
-        post.id === editingPost.id ? { ...post, ...postData } : post
-      ))
+      response = await fetch("/api/blogs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postData),
+      })
+    } else if (editingPost?._id) {
+      response = await fetch(`/api/blogs/${editingPost._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postData),
+      })
     }
 
-    setIsOpen(false)
-    setFormData({
-      title: '',
-      excerpt: '',
-      content: '',
-      author: '',
-      category: '',
-      image: '',
-      featured: false
-    })
+    if (response?.ok) {
+      const updatedPosts = await (await fetch("/api/blogs", { cache: "no-store" })).json()
+      onPostsUpdate(updatedPosts)
+      setIsOpen(false)
+      setFormData({
+        title: "",
+        excerpt: "",
+        content: "",
+        author: "",
+        category: "",
+        image: "",
+        featured: false,
+      })
+    } else {
+      alert("Failed to save blog post")
+    }
   }
 
   return (
@@ -147,33 +168,34 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
         Create New Post
       </Button>
 
+      {/* Create/Edit Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <BookOpen className="w-5 h-5" />
-              {isCreating ? 'Create New Blog Post' : 'Edit Blog Post'}
+              {isCreating ? "Create New Blog Post" : "Edit Blog Post"}
             </DialogTitle>
           </DialogHeader>
 
           <div className="space-y-6">
+            {/* form fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="title">Title *</Label>
                 <Input
                   id="title"
                   value={formData.title}
-                  onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                  onChange={(e) => setFormData((p) => ({ ...p, title: e.target.value }))}
                   placeholder="Enter blog post title"
                 />
               </div>
-              
               <div>
                 <Label htmlFor="author">Author *</Label>
                 <Input
                   id="author"
                   value={formData.author}
-                  onChange={(e) => setFormData(prev => ({ ...prev, author: e.target.value }))}
+                  onChange={(e) => setFormData((p) => ({ ...p, author: e.target.value }))}
                   placeholder="Author name"
                 />
               </div>
@@ -184,27 +206,26 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
                 <Label htmlFor="category">Category *</Label>
                 <Select
                   value={formData.category}
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, category: value }))}
+                  onValueChange={(v) => setFormData((p) => ({ ...p, category: v }))}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
+                    {categories.map((c) => (
+                      <SelectItem key={c} value={c}>
+                        {c}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-
               <div>
                 <Label htmlFor="image">Image URL</Label>
                 <Input
                   id="image"
                   value={formData.image}
-                  onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
+                  onChange={(e) => setFormData((p) => ({ ...p, image: e.target.value }))}
                   placeholder="https://example.com/image.jpg"
                 />
               </div>
@@ -215,8 +236,8 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
               <Textarea
                 id="excerpt"
                 value={formData.excerpt}
-                onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
-                placeholder="Brief description of the blog post..."
+                onChange={(e) => setFormData((p) => ({ ...p, excerpt: e.target.value }))}
+                placeholder="Brief description..."
                 className="h-20"
               />
             </div>
@@ -226,7 +247,7 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
               <Textarea
                 id="content"
                 value={formData.content}
-                onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                onChange={(e) => setFormData((p) => ({ ...p, content: e.target.value }))}
                 placeholder="Full blog post content..."
                 className="h-40"
               />
@@ -237,8 +258,7 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
                 type="checkbox"
                 id="featured"
                 checked={formData.featured}
-                onChange={(e) => setFormData(prev => ({ ...prev, featured: e.target.checked }))}
-                className="rounded"
+                onChange={(e) => setFormData((p) => ({ ...p, featured: e.target.checked }))}
               />
               <Label htmlFor="featured">Featured Post</Label>
             </div>
@@ -249,14 +269,14 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
               </Button>
               <Button onClick={handleSavePost} className="gradient-yellow-blue text-white">
                 <Save className="w-4 h-4 mr-2" />
-                {isCreating ? 'Create Post' : 'Save Changes'}
+                {isCreating ? "Create Post" : "Save Changes"}
               </Button>
             </div>
           </div>
         </DialogContent>
       </Dialog>
 
-      {/* Blog Management Panel */}
+      {/* Manage Posts Dialog */}
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline" className="gap-2">
@@ -264,61 +284,66 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
             Manage Posts
           </Button>
         </DialogTrigger>
-        
+
         <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Blog Management</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
-              {posts.map((post) => (
-                <Card key={post.id} className="relative">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-start justify-between">
-                      <Badge variant={post.featured ? "default" : "secondary"} className="text-xs">
-                        {post.featured ? "Featured" : post.category}
-                      </Badge>
-                      <div className="flex gap-1">
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          className="w-8 h-8 p-0"
-                          onClick={() => handleEditPost(post)}
-                        >
-                          <Edit className="w-3 h-3" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          className="w-8 h-8 p-0"
-                          onClick={() => handleDeletePost(post.id)}
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {posts.map((post) => (
+              <Card key={post._id} className="relative">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <Badge
+                      variant={post.featured ? "default" : "secondary"}
+                      className="text-xs"
+                    >
+                      {post.featured ? "Featured" : post.category}
+                    </Badge>
+                    <div className="flex gap-1">
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="w-8 h-8 p-0"
+                        onClick={() => handleEditPost(post)}
+                      >
+                        <Edit className="w-3 h-3" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        className="w-8 h-8 p-0"
+                        onClick={() => handleDeletePost(post._id)}
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </Button>
                     </div>
-                    <CardTitle className="text-sm line-clamp-2">{post.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-xs text-gray-600 line-clamp-2 mb-2">{post.excerpt}</p>
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <User className="w-3 h-3" />
-                      <span>{post.author}</span>
-                      <Calendar className="w-3 h-3 ml-2" />
-                      <span>{post.date}</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {posts.length === 0 && (
-              <div className="text-center py-8 text-gray-500">
-                No blog posts yet. Create your first post to get started!
-              </div>
-            )}
+                  </div>
+                  <CardTitle className="text-sm line-clamp-2">
+                    {post.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <p className="text-xs text-gray-600 line-clamp-2 mb-2">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <User className="w-3 h-3" />
+                    <span>{post.author}</span>
+                    <Calendar className="w-3 h-3 ml-2" />
+                    <span>{post.date}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
+
+          {posts.length === 0 && (
+            <div className="text-center py-8 text-gray-500">
+              No blog posts yet. Create your first one!
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </>
