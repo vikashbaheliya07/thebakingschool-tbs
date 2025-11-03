@@ -33,7 +33,21 @@ export function EmailCaptureModal() {
     setLoading(true)
     setMessage("")
 
-    // Basic validation for mobile number (optional)
+    // Require at least one field
+    if (!email && !mobile) {
+      setMessage("❌ Please provide either an email or mobile number.")
+      setLoading(false)
+      return
+    }
+
+    // Validate email if entered
+    if (email && !/\S+@\S+\.\S+/.test(email)) {
+      setMessage("❌ Please enter a valid email address.")
+      setLoading(false)
+      return
+    }
+
+    // Validate mobile if entered
     if (mobile && !/^\+?\d{7,15}$/.test(mobile)) {
       setMessage("❌ Please enter a valid mobile number (digits only, optional +).")
       setLoading(false)
@@ -96,14 +110,13 @@ export function EmailCaptureModal() {
                   placeholder="example@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                   disabled={loading}
                 />
               </div>
 
               {/* Optional Mobile Number */}
               <div className="space-y-2">
-                <Label htmlFor="mobile">Mobile Number (optional)</Label>
+                <Label htmlFor="mobile">Mobile Number</Label>
                 <Input
                   id="mobile"
                   type="tel"
@@ -148,7 +161,7 @@ export function EmailCaptureModal() {
                 <Button
                   type="submit"
                   className="flex-1 gradient-yellow-blue text-white flex items-center justify-center gap-2"
-                  disabled={loading || !email.includes("@")}
+                  disabled={loading || (!email && !mobile)}
                 >
                   {loading ? (
                     <div className="flex items-center gap-2">

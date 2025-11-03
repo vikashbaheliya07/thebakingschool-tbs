@@ -51,12 +51,27 @@ export function BookingForm({ children, preSelectedCourse }: BookingFormProps) {
     }
   }, [preSelectedCourse, isOpen])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission here
-    console.log("Form submitted:", formData)
-    // You can add API call here
-    setIsOpen(false)
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("/api/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(`Error: ${data.error}`);
+      return;
+    }
+
+    alert("🎉 Booking submitted successfully!");
+    console.log("Booking data:", data.booking);
+    setIsOpen(false);
+
     // Reset form
     setFormData({
       firstName: "",
@@ -66,9 +81,14 @@ export function BookingForm({ children, preSelectedCourse }: BookingFormProps) {
       course: "",
       experience: "",
       startDate: "",
-      message: ""
-    })
+      message: "",
+    });
+  } catch (error) {
+    console.error("Submission error:", error);
+    alert("Something went wrong while submitting your booking.");
   }
+};
+
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))

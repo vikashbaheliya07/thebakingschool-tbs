@@ -7,7 +7,7 @@ export default function FloatingSocials() {
     <div className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 flex flex-col gap-2 sm:gap-3 z-50">
       {/* WhatsApp */}
       <a
-        href="https://wa.me/911234567890" // 🔹 Replace with your WhatsApp number
+        href="https://wa.me/9876320800" // 🔹 Replace with your WhatsApp number
         target="_blank"
         rel="noopener noreferrer"
         className="bg-green-500 text-white p-2 sm:p-2.5 md:p-3 rounded-full shadow-md 

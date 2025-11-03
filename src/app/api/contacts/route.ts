@@ -7,8 +7,12 @@ export async function POST(req: Request): Promise<Response> {
     await connectDB();
     const { email, mobile }: Partial<IContact> = await req.json();
 
-    if (!email || !mobile) {
-      return Response.json({ error: "Email and mobile are required." }, { status: 400 });
+    // Require at least one
+    if (!email && !mobile) {
+      return Response.json(
+        { error: "Please provide at least an email or mobile number." },
+        { status: 400 }
+      );
     }
 
     const contact = await Contact.create({ email, mobile });
@@ -22,7 +26,7 @@ export async function POST(req: Request): Promise<Response> {
 export async function GET(): Promise<Response> {
   try {
     await connectDB();
-    const contacts: IContact[] = await Contact.find();
+    const contacts: IContact[] = await Contact.find().sort({ createdAt: -1 });
     return Response.json(contacts, { status: 200 });
   } catch (error) {
     const err = error as Error;

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react"
+import { Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react"
 
 const footerLinks = {
   courses: [
@@ -58,17 +58,34 @@ export default function Footer() {
                 comprehensive courses and expert instruction.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300">
+                {/* Facebook */}
+                <a
+                  href="https://facebook.com/The-Baking-school-100093333789801"
+                  className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
+                >
                   <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300">
+
+                {/* Instagram */}
+                <a
+                  href="https://instagram.com/thebakingschoolbti"
+                  className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
+                >
                   <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300">
-                  <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300">
-                  <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
+
+                {/* Justdial */}
+                <a
+                  href="#"
+                  className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                >
+                  <Image
+                    src="/justdial.webp"
+                    alt="Justdial"
+                    width={24}
+                    height={24}
+                    className="object-contain"
+                  />
                 </a>
               </div>
             </div>
@@ -79,7 +96,10 @@ export default function Footer() {
               <ul className="space-y-2 sm:space-y-3">
                 {footerLinks.courses.map((link) => (
                   <li key={link.name}>
-                    <Link href={link.href} className="text-gray-300 hover:text-yellow-300 transition-colors duration-300 text-sm sm:text-base">
+                    <Link
+                      href={link.href}
+                      className="text-gray-300 hover:text-yellow-300 transition-colors duration-300 text-sm sm:text-base"
+                    >
                       {link.name}
                     </Link>
                   </li>
@@ -93,7 +113,10 @@ export default function Footer() {
               <ul className="space-y-2 sm:space-y-3">
                 {footerLinks.quickLinks.map((link) => (
                   <li key={link.name}>
-                    <Link href={link.href} className="text-gray-300 hover:text-yellow-300 transition-colors duration-300 text-sm sm:text-base">
+                    <Link
+                      href={link.href}
+                      className="text-gray-300 hover:text-yellow-300 transition-colors duration-300 text-sm sm:text-base"
+                    >
                       {link.name}
                     </Link>
                   </li>
@@ -106,24 +129,28 @@ export default function Footer() {
               <h3 className="text-white font-semibold text-base sm:text-lg mb-4 sm:mb-6">Contact Info</h3>
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-start space-x-3">
-  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 mt-0.5 flex-shrink-0" />
-  <a
-    href="https://www.google.com/maps?q=The+Baking+School,+street+no.+13,+Ajit+road,+Bathinda,+Punjab"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-gray-300 hover:text-yellow-300 transition-colors duration-300 text-sm sm:text-base underline-offset-2 hover:underline"
-  >
-    The Baking School, street no. 13, Ajit road, Bathinda, Punjab
-  </a>
-</div>
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 mt-0.5 flex-shrink-0" />
+                  <a
+                    href="https://www.google.com/maps?q=The+Baking+School,+street+no.+13,+Ajit+road,+Bathinda,+Punjab"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-300 hover:text-yellow-300 transition-colors duration-300 text-sm sm:text-base underline-offset-2 hover:underline"
+                  >
+                    The Baking School, street no. 13, Ajit road, Bathinda, Punjab
+                  </a>
+                </div>
 
                 <div className="flex items-center space-x-3">
                   <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 flex-shrink-0" />
-                  <span className="text-gray-300 text-sm sm:text-base">98763-20800, 99889-92110</span>
+                  <span className="text-gray-300 text-sm sm:text-base">
+                    98763-20800, 99889-92110
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 flex-shrink-0" />
-                  <span className="text-gray-300 text-sm sm:text-base">ceo@thebakingschool.in</span>
+                  <span className="text-gray-300 text-sm sm:text-base">
+                    ceo@thebakingschool.in
+                  </span>
                 </div>
               </div>
 
@@ -153,7 +180,11 @@ export default function Footer() {
               </p>
               <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                 {footerLinks.support.slice(4).map((link) => (
-                  <Link key={link.name} href={link.href} className="text-gray-300 hover:text-yellow-300 text-xs sm:text-sm transition-colors duration-300">
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="text-gray-300 hover:text-yellow-300 text-xs sm:text-sm transition-colors duration-300"
+                  >
                     {link.name}
                   </Link>
                 ))}

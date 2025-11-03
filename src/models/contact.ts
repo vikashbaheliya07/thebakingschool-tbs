@@ -6,8 +6,8 @@ export interface IContact extends Document {
 }
 
 const contactSchema = new Schema<IContact>({
-  email: { type: String, required: true, unique: true },
-  mobile: { type: String, required: true },
+  email: { type: String,  unique: true, sparse: true },
+  mobile: { type: String },
 });
 
 const Contact: Model<IContact> =
