@@ -22,10 +22,17 @@ export function EmailCaptureModal() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState("")
 
-  // Auto show modal after 5 seconds
+  // ✅ Show modal after 5s only if not already shown before
   useEffect(() => {
-    const timer = setTimeout(() => setIsOpen(true), 5000)
-    return () => clearTimeout(timer)
+    const hasSeenModal = localStorage.getItem("emailCaptureShown")
+
+    if (!hasSeenModal) {
+      const timer = setTimeout(() => {
+        setIsOpen(true)
+        localStorage.setItem("emailCaptureShown", "true") // mark as shown
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,21 +40,18 @@ export function EmailCaptureModal() {
     setLoading(true)
     setMessage("")
 
-    // Require at least one field
     if (!email && !mobile) {
       setMessage("❌ Please provide either an email or mobile number.")
       setLoading(false)
       return
     }
 
-    // Validate email if entered
     if (email && !/\S+@\S+\.\S+/.test(email)) {
       setMessage("❌ Please enter a valid email address.")
       setLoading(false)
       return
     }
 
-    // Validate mobile if entered
     if (mobile && !/^\+?\d{7,15}$/.test(mobile)) {
       setMessage("❌ Please enter a valid mobile number (digits only, optional +).")
       setLoading(false)
@@ -67,6 +71,9 @@ export function EmailCaptureModal() {
         setMessage("✅ Your details have been saved successfully!")
         setEmail("")
         setMobile("")
+        // 🔒 Mark as completed so it never shows again
+        localStorage.setItem("emailCaptureSubmitted", "true")
+
         setTimeout(() => setIsOpen(false), 2000)
       } else {
         setMessage(data.error || "❌ Something went wrong.")
@@ -77,6 +84,14 @@ export function EmailCaptureModal() {
       setLoading(false)
     }
   }
+
+  // ✅ Don’t auto-open if user already submitted before
+  useEffect(() => {
+    const alreadySubmitted = localStorage.getItem("emailCaptureSubmitted")
+    if (alreadySubmitted) {
+      localStorage.setItem("emailCaptureShown", "true") // prevent future popups
+    }
+  }, [])
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -114,7 +129,7 @@ export function EmailCaptureModal() {
                 />
               </div>
 
-              {/* Optional Mobile Number */}
+              {/* Mobile */}
               <div className="space-y-2">
                 <Label htmlFor="mobile">Mobile Number</Label>
                 <Input
