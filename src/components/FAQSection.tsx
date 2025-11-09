@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     question: "What kind of certification do you provide?",
-    answer: "We award each student a Nationally Recognized Skill Certificate in Baking, certified by THSC–NCVET under the Skill India Mission, along with ISO 9001:2015 quality standards."
+    answer: "We award each student a Nationally Recognized Skill Certificate in Baking, certified by THSC–NCVET under the Skill India Mission, along with ISO 9001:2005 quality standards."
   },
   {
     question: "Can I take courses if I want to start a baking business?",

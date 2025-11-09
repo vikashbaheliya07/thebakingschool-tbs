@@ -21,7 +21,7 @@ const stats = [
   },
   {
     icon: Award,
-    number: "ISO 9001 2015",
+    number: "ISO 9001 2005",
     label: "Certified Institute",
     color: "text-green-600"
   },
