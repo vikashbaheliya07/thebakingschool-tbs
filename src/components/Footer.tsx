@@ -12,7 +12,7 @@ const footerLinks = {
     { name: "Master Baker Course", href: "/courses/master-baker" },
   ],
   quickLinks: [
-    { name: "About Us", href: "/about" },
+    { name: "About Us", href: "/about-us" },
     { name: "Gallery", href: "/gallery" },
     { name: "Success Stories", href: "/success-stories" },
     { name: "Contact", href: "/contact" },
