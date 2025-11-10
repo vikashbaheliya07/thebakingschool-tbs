@@ -2,10 +2,11 @@
 // In a real application, you would use a proper backend/database
 
 export interface GalleryImage {
-  id: number
+  _id?: string                // MongoDB document ID
+  id?: number                 // Optional numeric ID for local fallback
   title: string
   category: string
-  image: string
+  image: string               // Cloudinary URL
   description?: string
   uploadDate?: string
   uploader?: string
@@ -40,7 +41,8 @@ export function loadGalleryImages(): GalleryImage[] {
 // Add a new image to the gallery
 export function addGalleryImage(image: Omit<GalleryImage, 'id'>): GalleryImage {
   const existingImages = loadGalleryImages()
-  const newId = Math.max(...existingImages.map(img => img.id), 0) + 1
+const newId =
+  Math.max(...existingImages.map(img => img.id ?? 0), 0) + 1
   
   const newImage: GalleryImage = {
     ...image,

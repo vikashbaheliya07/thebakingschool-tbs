@@ -18,10 +18,12 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Upload, X, Image as ImageIcon, Camera, Plus } from "lucide-react"
+import { Upload, X, Camera, Plus } from "lucide-react"
 import Image from "next/image"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 
 interface UploadedImage {
   file: File
@@ -37,14 +39,14 @@ interface ImageUploadProps {
 
 const categories = [
   "Pastries",
-  "Cakes", 
+  "Cakes",
   "Breads",
   "Confections",
   "Cupcakes",
   "Pies",
   "Student Work",
   "Instructor Demos",
-  "Behind the Scenes"
+  "Behind the Scenes",
 ]
 
 export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
@@ -55,96 +57,81 @@ export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
 
   // Handle file selection
   const handleFiles = useCallback((files: FileList) => {
-    const validFiles = Array.from(files).filter(file => {
-      // Validate file type
-      if (!file.type.startsWith('image/')) {
+    const validFiles = Array.from(files).filter((file) => {
+      if (!file.type.startsWith("image/")) {
         alert(`${file.name} is not an image file`)
         return false
       }
-      
-      // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         alert(`${file.name} is too large. Maximum size is 5MB`)
         return false
       }
-      
       return true
     })
 
-    const newImages: UploadedImage[] = validFiles.map(file => ({
+    const newImages: UploadedImage[] = validFiles.map((file) => ({
       file,
       preview: URL.createObjectURL(file),
-      title: file.name.replace(/\.[^/.]+$/, ""), // Remove extension
+      title: file.name.replace(/\.[^/.]+$/, ""),
       category: "Student Work",
-      description: ""
+      description: "",
     }))
 
-    setUploadedImages(prev => [...prev, ...newImages])
+    setUploadedImages((prev) => [...prev, ...newImages])
   }, [])
 
-  // Handle drag and drop
+  // Drag and drop handlers
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true)
-    } else if (e.type === "dragleave") {
-      setDragActive(false)
-    }
+    if (e.type === "dragenter" || e.type === "dragover") setDragActive(true)
+    else if (e.type === "dragleave") setDragActive(false)
   }, [])
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setDragActive(false)
-    
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFiles(e.dataTransfer.files)
-    }
-  }, [handleFiles])
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault()
+      e.stopPropagation()
+      setDragActive(false)
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        handleFiles(e.dataTransfer.files)
+      }
+    },
+    [handleFiles]
+  )
 
-  // Handle file input change
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      handleFiles(e.target.files)
-    }
+    if (e.target.files) handleFiles(e.target.files)
   }
 
-  // Update image details
   const updateImage = (index: number, field: keyof UploadedImage, value: string) => {
-    setUploadedImages(prev => prev.map((img, i) => 
-      i === index ? { ...img, [field]: value } : img
-    ))
+    setUploadedImages((prev) =>
+      prev.map((img, i) => (i === index ? { ...img, [field]: value } : img))
+    )
   }
 
-  // Remove image
   const removeImage = (index: number) => {
-    setUploadedImages(prev => {
+    setUploadedImages((prev) => {
       const newImages = prev.filter((_, i) => i !== index)
-      // Clean up object URL
       URL.revokeObjectURL(prev[index].preview)
       return newImages
     })
   }
 
-  // Handle upload submission
   const handleUpload = () => {
     if (uploadedImages.length === 0) {
       alert("Please select at least one image")
       return
     }
 
-    // Validate all images have required fields
-    const invalidImages = uploadedImages.filter(img => !img.title.trim() || !img.category)
-    if (invalidImages.length > 0) {
+    const invalid = uploadedImages.filter((img) => !img.title.trim() || !img.category)
+    if (invalid.length > 0) {
       alert("Please fill in title and category for all images")
       return
     }
 
     onImagesUploaded(uploadedImages)
-    
-    // Clean up and reset
-    uploadedImages.forEach(img => URL.revokeObjectURL(img.preview))
+    uploadedImages.forEach((img) => URL.revokeObjectURL(img.preview))
     setUploadedImages([])
     setIsOpen(false)
   }
@@ -157,16 +144,24 @@ export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
           Upload Images
         </Button>
       </DialogTrigger>
-      
+
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center">
             Upload Gallery Images
           </DialogTitle>
+          <DialogDescription className="text-center text-gray-500">
+            Choose images, add details, and upload them to your gallery.
+          </DialogDescription>
         </DialogHeader>
 
+        {/* Hidden fallback for accessibility (in case title is visually removed later) */}
+        <VisuallyHidden>
+          <DialogTitle>Upload Gallery Images Dialog</DialogTitle>
+        </VisuallyHidden>
+
         <div className="space-y-6">
-          {/* Upload Area */}
+          {/* Upload Dropzone */}
           <Card className="border-2 border-dashed border-gray-300 hover:border-yellow-400 transition-colors">
             <CardContent className="p-8">
               <div
@@ -183,7 +178,7 @@ export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
                     <Upload className="w-8 h-8 text-yellow-600" />
                   </div>
                 </div>
-                
+
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     Drop images here or click to browse
@@ -215,18 +210,17 @@ export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
             </CardContent>
           </Card>
 
-          {/* Uploaded Images Preview */}
+          {/* Preview List */}
           {uploadedImages.length > 0 && (
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">
                 Images to Upload ({uploadedImages.length})
               </h3>
-              
+
               <div className="space-y-4 max-h-96 overflow-y-auto">
                 {uploadedImages.map((image, index) => (
                   <Card key={index} className="p-4">
                     <div className="flex gap-4">
-                      {/* Image Preview */}
                       <div className="relative w-24 h-24 flex-shrink-0">
                         <Image
                           src={image.preview}
@@ -244,7 +238,6 @@ export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
                         </Button>
                       </div>
 
-                      {/* Image Details Form */}
                       <div className="flex-1 space-y-3">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           <div>
@@ -252,25 +245,27 @@ export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
                             <Input
                               id={`title-${index}`}
                               value={image.title}
-                              onChange={(e) => updateImage(index, 'title', e.target.value)}
+                              onChange={(e) => updateImage(index, "title", e.target.value)}
                               placeholder="Enter image title"
                               className="mt-1"
                             />
                           </div>
-                          
+
                           <div>
                             <Label htmlFor={`category-${index}`}>Category *</Label>
                             <Select
                               value={image.category}
-                              onValueChange={(value) => updateImage(index, 'category', value)}
+                              onValueChange={(value) =>
+                                updateImage(index, "category", value)
+                              }
                             >
                               <SelectTrigger className="mt-1">
                                 <SelectValue placeholder="Select category" />
                               </SelectTrigger>
                               <SelectContent>
-                                {categories.map((category) => (
-                                  <SelectItem key={category} value={category}>
-                                    {category}
+                                {categories.map((cat) => (
+                                  <SelectItem key={cat} value={cat}>
+                                    {cat}
                                   </SelectItem>
                                 ))}
                               </SelectContent>
@@ -283,7 +278,9 @@ export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
                           <Textarea
                             id={`description-${index}`}
                             value={image.description}
-                            onChange={(e) => updateImage(index, 'description', e.target.value)}
+                            onChange={(e) =>
+                              updateImage(index, "description", e.target.value)
+                            }
                             placeholder="Optional description..."
                             className="mt-1 h-20 resize-none"
                           />
@@ -302,18 +299,16 @@ export function ImageUpload({ onImagesUploaded }: ImageUploadProps) {
               <Button
                 variant="outline"
                 onClick={() => {
-                  uploadedImages.forEach(img => URL.revokeObjectURL(img.preview))
+                  uploadedImages.forEach((img) => URL.revokeObjectURL(img.preview))
                   setUploadedImages([])
                 }}
               >
                 Clear All
               </Button>
-              <Button
-                onClick={handleUpload}
-                className="gradient-yellow-blue text-white px-6"
-              >
+              <Button onClick={handleUpload} className="gradient-yellow-blue text-white px-6">
                 <Upload className="w-4 h-4 mr-2" />
-                Upload {uploadedImages.length} Image{uploadedImages.length !== 1 ? 's' : ''}
+                Upload {uploadedImages.length} Image
+                {uploadedImages.length !== 1 ? "s" : ""}
               </Button>
             </div>
           )}

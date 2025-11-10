@@ -11,93 +11,98 @@ import { PermissionGuard, AuthenticatedOnly } from "@/components/RoleBasedAccess
 import { AuthLogin } from "@/components/AuthLogin"
 import { RoleBasedDashboard } from "@/components/RoleBasedDashboard"
 import { Permission } from "@/types/auth"
-import { 
-  loadGalleryImages, 
-  saveGalleryImages, 
-  fileToBase64, 
-  validateImageFile,
-  type GalleryImage 
-} from "@/utils/galleryStorage"
-import { studentGalleryImages } from "@/utils/galleryConfig"
-
-// Example gallery data - mix of external URLs and local WebP images
-const initialGalleryImages = studentGalleryImages
+import { validateImageFile, type GalleryImage } from "@/utils/galleryStorage"
 
 function GalleryPageContent() {
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>(initialGalleryImages)
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
-  // Load images from localStorage on component mount
+  // ✅ Fetch images from MongoDB
   useEffect(() => {
-    const storedImages = loadGalleryImages()
-    if (storedImages.length > 0) {
-      setGalleryImages(storedImages)
-    } else {
-      // If no stored images, save the initial images
-      saveGalleryImages(initialGalleryImages)
+    const fetchImages = async () => {
+      try {
+        const res = await fetch("/api/gallery")
+        const data = await res.json()
+        if (res.ok) {
+          setGalleryImages(data)
+        } else {
+          console.error("Failed to load gallery:", data.error)
+        }
+      } catch (err) {
+        console.error("Error fetching gallery:", err)
+      } finally {
+        setIsLoading(false)
+      }
     }
-    setIsLoading(false)
+
+    fetchImages()
   }, [])
 
-  // Save images to localStorage whenever galleryImages changes
-  useEffect(() => {
-    if (!isLoading) {
-      saveGalleryImages(galleryImages)
-    }
-  }, [galleryImages, isLoading])
-
-  const handleImagesUploaded = async (uploadedImages: { title: string; category: string; file: File; description?: string }[]) => {
+  // ✅ Upload images: Cloudinary → MongoDB
+  const handleImagesUploaded = async (
+    uploadedImages: { title: string; category: string; file: File; description?: string }[]
+  ) => {
     try {
-      // Convert uploaded images to gallery format with base64 storage
       const newGalleryImages: GalleryImage[] = []
-      
-      for (let i = 0; i < uploadedImages.length; i++) {
-        const img = uploadedImages[i]
-        
-        // Validate the file
+
+      for (const img of uploadedImages) {
         const validation = validateImageFile(img.file)
         if (!validation.valid) {
           alert(`${img.title}: ${validation.error}`)
           continue
         }
-        
-        // Convert to base64 for storage
-        const base64Image = await fileToBase64(img.file)
-        
-        const newImage: GalleryImage = {
-          id: Math.max(...galleryImages.map(img => img.id), 0) + i + 1,
-          title: img.title,
-          category: img.category,
-          image: base64Image, // Store as base64
-          description: img.description || `Uploaded image: ${img.title}`,
-          uploadDate: new Date().toLocaleDateString(),
-          uploader: 'User',
-          likes: 0,
-          views: 0
+
+        // Upload to Cloudinary
+        const formData = new FormData()
+        formData.append("file", img.file)
+        const res = await fetch("/api/upload", { method: "POST", body: formData })
+        const data = await res.json()
+        if (!data.success) {
+          alert(`Upload failed for ${img.title}`)
+          continue
         }
-        
-        newGalleryImages.push(newImage)
+
+        const uploadedUrl = data.result.secure_url
+
+        // Save metadata in MongoDB
+        const saveRes = await fetch("/api/gallery", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: img.title,
+            category: img.category,
+            image: uploadedUrl,
+            description: img.description || `Uploaded image: ${img.title}`,
+            uploader: "Admin",
+          }),
+        })
+
+        const savedImage = await saveRes.json()
+        if (!saveRes.ok) {
+          console.error("Mongo save failed:", savedImage.error)
+          continue
+        }
+
+        newGalleryImages.push(savedImage)
       }
 
-      // Add new images to the gallery
-      setGalleryImages(prev => [...newGalleryImages, ...prev])
-      
-      alert(`Successfully uploaded ${newGalleryImages.length} image(s) to the gallery!`)
+      setGalleryImages((prev) => [...newGalleryImages, ...prev])
+      alert(`Uploaded & saved ${newGalleryImages.length} image(s)!`)
     } catch (error) {
-      console.error('Upload error:', error)
-      alert('Failed to upload images. Please try again.')
+      console.error("Upload error:", error)
+      alert("Failed to upload images. Please try again.")
     }
   }
 
   return (
     <div className="min-h-screen">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
-        <div className="relative z-10 max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto py-20 px-4 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
             Our
             <span className="dancing-script text-yellow-300 text-6xl md:text-8xl block">
@@ -105,47 +110,43 @@ function GalleryPageContent() {
             </span>
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Discover the beautiful creations from our talented students and expert instructors. 
-            Each piece tells a story of passion, skill, and dedication.
+            Discover the beautiful creations from our talented students and expert instructors.
           </p>
         </div>
       </section>
 
-      {/* Gallery Grid */}
+      {/* Gallery Section */}
       <section className="py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 to-blue-50"></div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Authentication & Upload Controls */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
           <div className="flex flex-col items-center gap-4 mb-8">
-            {/* Authentication Controls */}
             <div className="flex justify-center gap-3">
               <AuthLogin />
               <AuthenticatedOnly showFallback={false}>
                 <RoleBasedDashboard />
               </AuthenticatedOnly>
             </div>
-            
-            {/* Upload Buttons - Admin Only */}
+
             <PermissionGuard permission={Permission.ADMIN_ACCESS} showFallback={false}>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <ImageUpload onImagesUploaded={handleImagesUploaded} />
-                <AdminUpload 
-                  images={galleryImages} 
-                  onImagesUpdate={setGalleryImages} 
-                />
+                <AdminUpload images={galleryImages} onImagesUpdate={setGalleryImages} />
               </div>
             </PermissionGuard>
           </div>
-        
-          {/* Loading State */}
+
           {isLoading ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
               <p className="text-gray-600">Loading gallery...</p>
             </div>
           ) : (
-            <GalleryGrid images={initialGalleryImages} />
+<GalleryGrid
+  images={galleryImages.map((img, index) => ({
+    ...img,
+    id: img.id ?? index + 1, // 👈 fallback ID
+  }))}
+/>
           )}
         </div>
       </section>
