@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/mongodb"
 import GalleryImage from "@/models/galleryImage"
 import { v2 as cloudinary } from "cloudinary"
+import { NextResponse } from "next/server"
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
@@ -13,11 +14,11 @@ cloudinary.config({
  * PUT /api/gallery/:id
  * body: { title?: string, description?: string }
  */
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, context: { params: { id: string } }) {
   try {
     await connectDB()
     const body = await req.json()
-    const { id } = params
+    const { id } = context.params
 
     const updated = await GalleryImage.findByIdAndUpdate(
       id,
@@ -26,13 +27,13 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     )
 
     if (!updated) {
-      return Response.json({ error: "Image not found" }, { status: 404 })
+      return NextResponse.json({ error: "Image not found" }, { status: 404 })
     }
 
-    return Response.json(updated, { status: 200 })
+    return NextResponse.json(updated, { status: 200 })
   } catch (error) {
     console.error("Gallery PUT Error:", error)
-    return Response.json({ error: "Failed to update image" }, { status: 500 })
+    return NextResponse.json({ error: "Failed to update image" }, { status: 500 })
   }
 }
 
@@ -40,14 +41,14 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
  * 🔴 DELETE image from MongoDB and Cloudinary
  * DELETE /api/gallery/:id
  */
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, context: { params: { id: string } }) {
   try {
     await connectDB()
-    const { id } = params
+    const { id } = context.params
 
     const image = await GalleryImage.findById(id)
     if (!image) {
-      return Response.json({ error: "Image not found" }, { status: 404 })
+      return NextResponse.json({ error: "Image not found" }, { status: 404 })
     }
 
     // Extract Cloudinary public_id from the image URL
@@ -65,9 +66,12 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
     await GalleryImage.findByIdAndDelete(id)
 
-    return Response.json({ success: true, message: "Image deleted successfully" }, { status: 200 })
+    return NextResponse.json(
+      { success: true, message: "Image deleted successfully" },
+      { status: 200 }
+    )
   } catch (error) {
     console.error("Gallery DELETE Error:", error)
-    return Response.json({ error: "Failed to delete image" }, { status: 500 })
+    return NextResponse.json({ error: "Failed to delete image" }, { status: 500 })
   }
 }
