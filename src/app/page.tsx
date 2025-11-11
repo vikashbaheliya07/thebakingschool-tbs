@@ -9,6 +9,7 @@ import CTASection from "@/components/CTASection"
 import Footer from "@/components/Footer"
 import YouTubeEmbed from "@/components/YoutubeFrame"
 import AffiliationSection from "@/components/AffiliationSection"
+import InstagramFeedSection from "@/components/InstagramFeedSection"
 import { EmailCaptureModal } from "@/components/EmailCapture"
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         <AboutSection />
         <AffiliationSection />
         <FeaturesSection />
+        <InstagramFeedSection />
         <CoursesSection />
         <YouTubeEmbed videoId="dQw4w9WgXcQ" autoplay={false} />
         <TestimonialsSection />

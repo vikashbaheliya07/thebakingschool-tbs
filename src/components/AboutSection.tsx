@@ -79,7 +79,7 @@ export default function AboutSection() {
             {/* Hero Image */}
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                src="/Hero3.jpeg"
                 alt="The Baking School Kitchen"
                 fill
                 sizes="(max-width: 768px) 100vw, 80vw"
@@ -205,7 +205,7 @@ export default function AboutSection() {
             <div className="relative">
               <div className="relative h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                  src="/Hero3.jpeg"
                   alt="Professional chef in white uniform working in commercial kitchen"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

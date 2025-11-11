@@ -17,6 +17,7 @@ const footerLinks = {
     { name: "Success Stories", href: "/success-stories" },
     { name: "Contact", href: "/contact" },
     { name: "Blog", href: "/blog" },
+    {name: "Privacy Policy", href: "/privacy-policy" }
   ],
   support: [
     { name: "FAQ", href: "/faq" },

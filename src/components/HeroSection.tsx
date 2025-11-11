@@ -13,6 +13,8 @@ export default function HeroSection() {
   const slides = [
     { src: "./Hero1.jpg", position: "center 30%" }, // slightly pushed down
     { src: "./Hero2.jpg", position: "center" },
+    { src: "./Hero3.jpeg", position: "center 20%" }, // slightly pushed up
+
   ]
 
   return (
