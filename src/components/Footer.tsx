@@ -17,15 +17,13 @@ const footerLinks = {
     { name: "Success Stories", href: "/success-stories" },
     { name: "Contact", href: "/contact" },
     { name: "Blog", href: "/blog" },
-    {name: "Privacy Policy", href: "/privacy-policy" }
   ],
   support: [
     { name: "FAQ", href: "/faq" },
     { name: "Student Portal", href: "/portal" },
     { name: "Career Services", href: "/careers" },
     { name: "Alumni Network", href: "/alumni" },
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
+    { name: "Privacy Policy", href: "/privacy-policy" },
   ]
 }
 
