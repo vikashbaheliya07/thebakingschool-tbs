@@ -16,9 +16,9 @@ const GalleryImageSchema = new Schema<IGalleryImage>(
     title: { type: String, required: true },
     category: { type: String, required: true },
     image: { type: String, required: true }, // Cloudinary URL
-    description: { type: String },
+    description: String,
     uploader: { type: String, default: "Admin" },
-    uploadDate: { type: String },
+    uploadDate: String,
     likes: { type: Number, default: 0 },
     views: { type: Number, default: 0 },
   },

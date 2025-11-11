@@ -1,29 +1,41 @@
-import mongoose, { Schema, Document, models } from "mongoose"
+import { NextResponse } from "next/server";
+import { v2 as cloudinary } from "cloudinary";
 
-export interface IGalleryImage extends Document {
-  title: string
-  category: string
-  image: string
-  description?: string
-  uploader: string
-  uploadDate: string
-  likes: number
-  views: number
+// ✅ Configure Cloudinary (ensure these are in your .env.local)
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
+  api_key: process.env.CLOUDINARY_API_KEY!,
+  api_secret: process.env.CLOUDINARY_API_SECRET!,
+});
+
+// ✅ POST: Upload image to Cloudinary
+export async function POST(req: Request) {
+  try {
+    const formData = await req.formData();
+    const file = formData.get("file") as File;
+
+    if (!file) {
+      return NextResponse.json({ success: false, error: "No file uploaded" }, { status: 400 });
+    }
+
+    // Convert file → base64 for Cloudinary
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const base64 = buffer.toString("base64");
+    const dataURI = `data:${file.type};base64,${base64}`;
+
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(dataURI, {
+      folder: "baking-school-gallery",
+      resource_type: "image",
+    });
+
+    return NextResponse.json({ success: true, result });
+  } catch (error: unknown)  {
+    console.error("Cloudinary upload failed:", error);
+    return NextResponse.json(
+      { success: false, error: (error as Error).message || "Upload failed" },
+      { status: 500 }
+    );
+  }
 }
-
-const GalleryImageSchema = new Schema<IGalleryImage>(
-  {
-    title: { type: String, required: true },
-    category: { type: String, required: true },
-    image: { type: String, required: true }, // Cloudinary URL
-    description: String,
-    uploader: { type: String, default: "Admin" },
-    uploadDate: String,
-    likes: { type: Number, default: 0 },
-    views: { type: Number, default: 0 },
-  },
-  { timestamps: true }
-)
-
-export default models.GalleryImage ||
-  mongoose.model<IGalleryImage>("GalleryImage", GalleryImageSchema)

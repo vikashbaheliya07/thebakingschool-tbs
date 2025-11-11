@@ -8,7 +8,6 @@ export async function POST(req: Request): Promise<Response> {
     await connectDB();
     const { title, category, image }: Partial<IGalleryImage> = await req.json();
 
-    // Validate input
     if (!title || !category || !image) {
       return NextResponse.json(
         { error: "Missing required fields (title, category, image)." },
