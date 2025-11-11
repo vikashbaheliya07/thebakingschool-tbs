@@ -1,36 +1,44 @@
-import { connectDB } from "@/lib/mongodb"
-import GalleryImage from "@/models/galleryImage"
+import { connectDB } from "@/lib/mongodb";
+import GalleryImage from "@/models/galleryImage";
+import { IGalleryImage } from "@/models/galleryImage"; // if you have an interface for typing
+import { NextResponse } from "next/server";
 
-// POST — Save new uploaded image metadata
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
   try {
-    await connectDB()
-    const body = await req.json()
+    await connectDB();
+    const { title, category, image }: Partial<IGalleryImage> = await req.json();
 
-    if (!body.title || !body.category || !body.image) {
-      return Response.json({ error: "Missing required fields" }, { status: 400 })
+    // Validate input
+    if (!title || !category || !image) {
+      return NextResponse.json(
+        { error: "Missing required fields (title, category, image)." },
+        { status: 400 }
+      );
     }
 
     const newImage = await GalleryImage.create({
-      ...body,
+      title,
+      category,
+      image,
       uploadDate: new Date().toLocaleDateString(),
-    })
+    });
 
-    return Response.json(newImage, { status: 201 })
+    return NextResponse.json(newImage, { status: 201 });
   } catch (error) {
-    console.error("Gallery POST Error:", error)
-    return Response.json({ error: "Failed to save image" }, { status: 500 })
+    const err = error as Error;
+    console.error("Gallery POST Error:", err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
 
-// GET — Fetch all images for gallery
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
-    await connectDB()
-    const images = await GalleryImage.find().sort({ createdAt: -1 })
-    return Response.json(images, { status: 200 })
+    await connectDB();
+    const images: IGalleryImage[] = await GalleryImage.find().sort({ createdAt: -1 });
+    return NextResponse.json(images, { status: 200 });
   } catch (error) {
-    console.error("Gallery GET Error:", error)
-    return Response.json({ error: "Failed to fetch gallery" }, { status: 500 })
+    const err = error as Error;
+    console.error("Gallery GET Error:", err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
