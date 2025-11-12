@@ -10,8 +10,16 @@ export default function AboutPage() {
 
       {/* Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
+        {/* ===== Local Background Image (Adjusted Position) ===== */}
+        <div
+          className="absolute inset-0 bg-[url('/Hero1.jpg')] bg-cover bg-no-repeat transition-all duration-700"
+          style={{
+            backgroundPosition: "center 40%", // 👈 Pushes the image down slightly
+          }}
+        ></div>
+
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/70"></div>
+
         <div className="relative z-10 max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
             About
@@ -101,37 +109,13 @@ export default function AboutPage() {
 
           {/* Mission Grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
-            {[
-              {
-                icon: "🍰",
-                title: "Quality Baking Education",
-                desc: "Provide world-class, THSC-recognized baking education that blends traditional art with modern techniques."
-              },
-              {
-                icon: "💪",
-                title: "Empowerment",
-                desc: "Empower women and youth through professional skill training and entrepreneurship development."
-              },
-              {
-                icon: "🎓",
-                title: "Real-World Experience",
-                desc: "Ensure every student gains industry-relevant knowledge and hands-on experience for real-world success."
-              },
-              {
-                icon: "🌱",
-                title: "Sustainability & Innovation",
-                desc: "Promote creativity and sustainable baking practices that align with global standards."
-              },
-              {
-                icon: "🌍",
-                title: "Global Community",
-                desc: "Build a network of certified baking professionals who represent India’s talent worldwide."
-              },
-              {
-                icon: "🧁",
-                title: "Creativity & Passion",
-                desc: "Encourage students to express artistry and love for baking through every creation."
-              }
+            {[ 
+              { icon: "🍰", title: "Quality Baking Education", desc: "Provide world-class, THSC-recognized baking education that blends traditional art with modern techniques." },
+              { icon: "💪", title: "Empowerment", desc: "Empower women and youth through professional skill training and entrepreneurship development." },
+              { icon: "🎓", title: "Real-World Experience", desc: "Ensure every student gains industry-relevant knowledge and hands-on experience for real-world success." },
+              { icon: "🌱", title: "Sustainability & Innovation", desc: "Promote creativity and sustainable baking practices that align with global standards." },
+              { icon: "🌍", title: "Global Community", desc: "Build a network of certified baking professionals who represent India’s talent worldwide." },
+              { icon: "🧁", title: "Creativity & Passion", desc: "Encourage students to express artistry and love for baking through every creation." },
             ].map((item, index) => (
               <div key={index} className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-lg transition-shadow">
                 <h4 className="text-xl font-semibold mb-2 text-gray-800 flex items-center gap-2">

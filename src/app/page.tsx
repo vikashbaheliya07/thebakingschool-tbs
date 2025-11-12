@@ -24,7 +24,6 @@ export default function Home() {
         <FeaturesSection />
         <InstagramFeedSection />
         <CoursesSection />
-        <YouTubeEmbed videoId="dQw4w9WgXcQ" autoplay={false} />
         <TestimonialsSection />
         <FAQSection />
         <CTASection />
