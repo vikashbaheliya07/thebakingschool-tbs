@@ -75,11 +75,11 @@ export default function Footer() {
 
                 {/* Justdial */}
                 <a
-                  href="#"
+                  href=" https://jsdl.in/RSL-TNJ1762940949"
                   className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-300"
                 >
                   <Image
-                    src="/justdial.webp"
+                    src="/just-dial.webp"
                     alt="Justdial"
                     width={24}
                     height={24}

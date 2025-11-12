@@ -79,7 +79,7 @@ export default function AboutSection() {
             {/* Hero Image */}
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image
-                src="/Hero3.jpeg"
+                src="/Hero3.jpg"
                 alt="The Baking School Kitchen"
                 fill
                 sizes="(max-width: 768px) 100vw, 80vw"
@@ -205,7 +205,7 @@ export default function AboutSection() {
             <div className="relative">
               <div className="relative h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/Hero3.jpeg"
+                  src="/Hero3.jpg"
                   alt="Professional chef in white uniform working in commercial kitchen"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

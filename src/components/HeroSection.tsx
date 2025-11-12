@@ -12,21 +12,14 @@ export default function HeroSection() {
   const slides = [
     { src: "./Hero1.jpg", position: "center 30%" },
     { src: "./Hero2.jpg", position: "center 40%" },
-    { src: "./Hero3.jpeg", position: "center 20%" },
+    { src: "./Hero3.jpg", position: "center 20%" },
   ]
 
   return (
     <div className="relative w-full">
 
-      {/* ===== Marquee directly under Navbar ===== */}
-      <div className="fixed top-[var(--navbar-height,4rem)] left-0 w-full z-50 bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 py-2 sm:py-3 overflow-hidden whitespace-nowrap shadow-md">
-        <p className="text-white font-bold text-lg sm:text-2xl animate-marquee">
-          Discover Your Inner Chef • Discover Your Inner Chef • Discover Your Inner Chef • Discover Your Inner Chef •
-        </p>
-      </div>
-
-      {/* ===== Hero Section (starts below marquee) ===== */}
-      <section className="relative pt-[calc(var(--navbar-height,4rem)+3rem)] min-h-screen flex items-center sm:items-end justify-center overflow-hidden pb-8 sm:pb-16 lg:pb-20">
+      {/* ===== Hero Section (Carousel + Button + Stats) ===== */}
+      <section className="relative min-h-screen flex items-center sm:items-end justify-center overflow-hidden pb-8 sm:pb-16 lg:pb-20">
         
         {/* Background Carousel */}
         <div className="absolute inset-0">
@@ -58,7 +51,7 @@ export default function HeroSection() {
         </div>
 
         {/* Foreground Content */}
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-6 sm:px-6 lg:px-8 w-full pt-10 sm:pt-16 lg:pt-20">
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-6 sm:px-6 lg:px-8 w-full pt-20 sm:pt-28 lg:pt-32">
 
           {/* CTA Button */}
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center mb-6 sm:mb-12 px-2 sm:px-0">
@@ -86,15 +79,25 @@ export default function HeroSection() {
         </div>
       </section>
 
+      {/* ===== Marquee (Below Carousel, Single & Centered) ===== */}
+      <div className="bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 py-2 sm:py-3 overflow-hidden">
+        <div className="flex whitespace-nowrap animate-marquee">
+          {Array(10).fill("Discover Your Inner Chef").map((text, i) => (
+            <p key={i} className="text-white font-bold text-lg sm:text-2xl mx-8">
+              {text}
+            </p>
+          ))}
+        </div>
+      </div>
+
       {/* ===== Marquee Animation ===== */}
       <style jsx>{`
         @keyframes marquee {
-          0% { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          display: inline-block;
-          animation: marquee 15s linear infinite;
+          animation: marquee 20s linear infinite;
         }
       `}</style>
     </div>
