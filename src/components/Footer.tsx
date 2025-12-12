@@ -57,30 +57,37 @@ export default function Footer() {
                 comprehensive courses and expert instruction.
               </p>
               <div className="flex space-x-4">
-                {/* Facebook */}
-                <a
-                  href="https://facebook.com/The-Baking-school-100093333789801"
-                  className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
-                >
-                  <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
+  {/* Facebook */}
+  <a
+    href="https://facebook.com/The-Baking-school-100093333789801"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
+  >
+    <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
+  </a>
 
-                {/* Instagram */}
-                <a
-                  href="https://instagram.com/thebakingschoolbti"
-                  className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
-                >
-                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
+  {/* Instagram */}
+  <a
+    href="https://instagram.com/thebakingschoolbti"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
+  >
+    <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
+  </a>
 
-                {/* Justdial */}
-                <a
-                  href=" https://jsdl.in/RSL-TNJ1762940949"
-                  className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-300"
-                >
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                </a>
-              </div>
+  {/* Justdial */}
+  <a
+    href="https://jsdl.in/RSL-TNJ1762940949"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-300"
+  >
+    <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+  </a>
+</div>
+
             </div>
 
             {/* Courses */}

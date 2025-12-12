@@ -130,7 +130,7 @@ export default function FAQSection() {
                 Contact Us
               </a>
               <a 
-                href="tel:+919876543210" 
+                href="tel:+919876320800" 
                 className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-colors duration-300"
                 onClick={() => {
                   // Track call action for analytics
