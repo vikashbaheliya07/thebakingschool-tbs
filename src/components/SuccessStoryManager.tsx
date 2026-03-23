@@ -39,6 +39,7 @@ export function SuccessStoryManager({ stories, onStoriesUpdate }: SuccessStoryMa
   const [isCreating, setIsCreating] = useState(false)
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [isUploading, setIsUploading] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   const [formData, setFormData] = useState({
     name: "",
@@ -72,6 +73,7 @@ export function SuccessStoryManager({ stories, onStoriesUpdate }: SuccessStoryMa
     setEditingStory(null)
     resetForm()
     setIsOpen(true)
+    setSaveError(null)
   }
 
   const handleEditStory = (story: SuccessStoryType) => {
@@ -90,6 +92,7 @@ export function SuccessStoryManager({ stories, onStoriesUpdate }: SuccessStoryMa
     })
     setImageFile(null)
     setIsOpen(true)
+    setSaveError(null)
   }
 
   const handleDeleteStory = async (storyId?: string) => {
@@ -143,31 +146,40 @@ export function SuccessStoryManager({ stories, onStoriesUpdate }: SuccessStoryMa
       image: uploadedImageUrl,
     }
 
-    let response
-    if (isCreating) {
-      response = await fetch("/api/success-stories", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(storyData),
-      })
-    } else if (editingStory?._id) {
-      response = await fetch(`/api/success-stories/${editingStory._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(storyData),
-      })
-    }
+    try {
+      let response
+      if (isCreating) {
+        response = await fetch("/api/success-stories", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(storyData),
+        })
+      } else if (editingStory?._id) {
+        response = await fetch(`/api/success-stories/${editingStory._id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(storyData),
+        })
+      }
 
-    setIsUploading(false)
+      setIsUploading(false)
 
-    if (response?.ok) {
-      const updatedStories = await (await fetch("/api/success-stories", { cache: "no-store" })).json()
-      onStoriesUpdate(updatedStories)
-      setIsOpen(false)
-      resetForm()
-    } else {
-      const errorData = await response?.json()
-      alert(`Failed to save success story: ${errorData?.error || "Unknown error"}`)
+      if (response?.ok) {
+        const updatedStories = await (await fetch("/api/success-stories", { cache: "no-store" })).json()
+        onStoriesUpdate(updatedStories)
+        setIsOpen(false)
+        resetForm()
+      } else {
+        const errorData = await response?.json().catch(() => ({}))
+        const msg = errorData?.error || response?.statusText || "Server error"
+        setSaveError(msg)
+        alert(`Failed to save success story: ${msg}`)
+      }
+    } catch (err) {
+      setIsUploading(false)
+      const msg = (err as Error).message
+      setSaveError(msg)
+      alert(`Network error saving success story: ${msg}`)
     }
   }
 
@@ -189,6 +201,11 @@ export function SuccessStoryManager({ stories, onStoriesUpdate }: SuccessStoryMa
           </DialogHeader>
 
           <div className="space-y-6">
+            {saveError && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
+                <strong>Error:</strong> {saveError}
+              </div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="name">Name *</Label>
