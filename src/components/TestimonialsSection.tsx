@@ -4,16 +4,25 @@ import { useEffect } from "react"
 
 export default function TestimonialsSection() {
   useEffect(() => {
-    // Reinitialize Featurable script on client side if needed
-    const existingScript = document.querySelector('script[src="https://featurable.com/assets/v2/carousel_default.min.js"]')
-    if (!existingScript) {
-      const script = document.createElement("script")
-      script.src = "https://featurable.com/assets/v2/carousel_default.min.js"
-      script.defer = true
-      script.charset = "UTF-8"
-      document.body.appendChild(script)
-    }
-  }, [])
+    // Completely remove any existing script to force a fresh re-initialization 
+    // when navigating to this page via Next.js client-side router
+    const existingScripts = document.querySelectorAll('script[src="https://featurable.com/assets/v2/carousel_default.min.js"]');
+    existingScripts.forEach((script) => script.remove());
+
+    const script = document.createElement("script");
+    script.src = "https://featurable.com/assets/v2/carousel_default.min.js";
+    script.async = true;
+    script.charset = "UTF-8";
+    
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup when navigating away
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">

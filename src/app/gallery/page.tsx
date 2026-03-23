@@ -23,13 +23,15 @@ function GalleryPageContent() {
       try {
         const res = await fetch("/api/gallery")
         const data = await res.json()
-        if (res.ok) {
+        if (res.ok && Array.isArray(data)) {
           setGalleryImages(data)
         } else {
-          console.error("Failed to load gallery:", data.error)
+          console.warn("Failed to load gallery:", data?.error || data)
+          setGalleryImages([])
         }
       } catch (err) {
-        console.error("Error fetching gallery:", err)
+        console.warn("Error fetching gallery:", err)
+        setGalleryImages([])
       } finally {
         setIsLoading(false)
       }
@@ -100,9 +102,9 @@ function GalleryPageContent() {
 
       {/* Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('/Hero3.webp')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
-        <div className="relative z-10 max-w-7xl mx-auto py-20 px-4 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
             Our
             <span className="dancing-script text-yellow-300 text-6xl md:text-8xl block">

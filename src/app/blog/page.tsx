@@ -51,8 +51,18 @@ const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null)
   useEffect(() => {
     fetch("/api/blogs")
       .then((res) => res.json())
-      .then((data) => setPosts(data))
-      .catch((err) => console.error("Failed to load blogs", err))
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setPosts(data)
+        } else {
+          console.error("Failed to load blogs. API returned:", data)
+          setPosts([])
+        }
+      })
+      .catch((err) => {
+        console.warn("Failed to load blogs", err)
+        setPosts([])
+      })
   }, [])
 
   const featuredPost = posts.find((post) => post.featured)
@@ -95,7 +105,7 @@ const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null)
 
       {/* 🧁 Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('/Hero1.webp')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
         <div className="relative z-10 max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-yellow-100 to-blue-100 mb-6">

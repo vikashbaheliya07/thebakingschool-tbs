@@ -38,17 +38,20 @@ export default function Footer() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand Section */}
             <div className="sm:col-span-2 lg:col-span-1">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+              <div className="flex items-center mb-6 -ml-2 sm:-ml-3">
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 mr-2 sm:mr-3">
                   <Image
                     src="/thebakingschool.webp"
                     alt="The Baking School Logo"
                     fill
-                    sizes="(max-width: 640px) 40px, 48px"
-                    className="object-contain"
+                    sizes="(max-width: 640px) 80px, 96px"
+                    className="object-contain object-left"
                   />
                 </div>
-                <span className="text-2xl sm:text-3xl font-bold dancing-script text-white">
+                <span
+                  className="text-lg sm:text-xl font-bold text-white tracking-tight leading-tight whitespace-nowrap"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
                   The Baking School
                 </span>
               </div>
@@ -57,36 +60,36 @@ export default function Footer() {
                 comprehensive courses and expert instruction.
               </p>
               <div className="flex space-x-4">
-  {/* Facebook */}
-  <a
-    href="https://facebook.com/The-Baking-school-100093333789801"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
-  >
-    <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
-  </a>
+                {/* Facebook */}
+                <a
+                  href="https://facebook.com/The-Baking-school-100093333789801"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
+                >
+                  <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
 
-  {/* Instagram */}
-  <a
-    href="https://instagram.com/thebakingschoolbti"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
-  >
-    <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
-  </a>
+                {/* Instagram */}
+                <a
+                  href="https://instagram.com/thebakingschoolbti"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:scale-110 transition-transform duration-300"
+                >
+                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
 
-  {/* Justdial */}
-  <a
-    href="https://jsdl.in/RSL-TNJ1762940949"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-300"
-  >
-    <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-  </a>
-</div>
+                {/* Justdial */}
+                <a
+                  href="https://jsdl.in/RSL-TNJ1762940949"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full glass flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                >
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                </a>
+              </div>
 
             </div>
 
@@ -146,11 +149,13 @@ export default function Footer() {
                     98763-20800, 99889-92110
                   </span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 flex-shrink-0" />
-                  <span className="text-gray-300 text-sm sm:text-base">
-                    ceo@thebakingschool.in
-                  </span>
+                <div className="flex items-start space-x-3">
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 flex-shrink-0 mt-0.5" />
+                  <div className="text-gray-300 text-sm sm:text-base">
+                    <p>ceo@thebakingschool.in</p>
+                    <p>operation@thebakingschool.in</p>
+                    <p>thebakingschoolbti@gmail.com</p>
+                  </div>
                 </div>
               </div>
 
@@ -176,7 +181,7 @@ export default function Footer() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
               <p className="text-gray-300 text-xs sm:text-sm text-center sm:text-left">
-                © 2024 The Baking School. All rights reserved.
+                © 2026 The Baking School. All rights reserved.
               </p>
               <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                 {footerLinks.support.slice(4).map((link) => (

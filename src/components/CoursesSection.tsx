@@ -1,80 +1,40 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Clock, Users, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { BookingForm } from "@/components/BookingForm"
-
-export const courses = [
-  {
-    title: "Fundamental Baker Course",
-    description:
-      "Learn the basics of baking, different types of cakes, and dry cakes. 100% VEGAN — we don’t even use eggs in anything.",
-    duration: "1 month",
-    students: "12",
-    rating: "4.9",
-    price: "₹24,999",
-    image:
-      "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1000&q=80",
-  },
-  {
-    title: "Intermediate Baker Course",
-    description:
-      "Learn everything from the Fundamental Course plus a variety of chocolates, advanced cake designing, cookies, brownies, and laminated dough. 100% VEGAN — we don’t even use eggs in anything.",
-    duration: "2 months",
-    students: "10",
-    rating: "4.9",
-    price: "₹39,999",
-    image:
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=80",
-  },
-  {
-    title: "Professional Baker Course",
-    description:
-      "Includes everything from the Fundamental and Intermediate Courses plus two-tier cakes, nutritional baking, fondant cakes, bread baking, and doughnuts. 100% VEGAN — we don’t even use eggs in anything.",
-    duration: "3 months",
-    students: "10",
-    rating: "5.0",
-    price: "₹54,999",
-    image:
-      "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1000&q=80",
-  },
-  {
-    title: "Advanced Baker Course",
-    description:
-      "Covers everything from the Fundamental, Intermediate, and Professional Courses plus buttercream, cheesecakes, advanced dry cakes, tarts & pies, and advanced breads. 100% VEGAN — we don’t even use eggs in anything.",
-    duration: "4 months",
-    students: "8",
-    rating: "5.0",
-    price: "₹69,999",
-    image:
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=80",
-  },
-  {
-    title: "Expert Baker Course",
-    description:
-      "Covers everything from the Fundamental to Advanced Courses plus viennoiseries, shakes, mocktails, barista skills, ice cream, wraps, advanced cookies, pasta, and macarons. 100% VEGAN — we don’t even use eggs in anything.",
-    duration: "5 months",
-    students: "6",
-    rating: "5.0",
-    price: "₹84,999",
-    image:
-      "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=1000&q=80",
-  },
-  {
-    title: "Master Baker Course",
-    description:
-      "Includes everything from the Fundamental to Expert Courses plus industrial tours, industrial training, internship opportunities, and business mentorship. 100% VEGAN — we don’t even use eggs in anything.",
-    duration: "6 months",
-    students: "6",
-    rating: "5.0",
-    price: "₹99,999",
-    image:
-      "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=1000&q=80",
-  },
-]
+import { CourseType } from "@/components/CourseManager"
 
 export default function CoursesSection() {
+  const [courses, setCourses] = useState<CourseType[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch("/api/courses")
+        const data = await res.json()
+        if (res.ok && Array.isArray(data)) {
+          setCourses(data)
+        } else {
+          console.warn("Failed to load courses:", data?.error || data)
+          setCourses([])
+        }
+      } catch (err) {
+        console.warn("Error fetching courses:", err)
+        setCourses([])
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchCourses()
+  }, [])
+
   return (
     <section className="py-12 sm:py-16 lg:py-20 relative">
       <div className="absolute inset-0 gradient-yellow-blue opacity-10"></div>
@@ -94,66 +54,79 @@ export default function CoursesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {courses.map((course, index) => (
-            <Card
-              key={index}
-              className="glass border-white/20 hover:scale-105 transition-all duration-300 overflow-hidden group"
-            >
-              <div className="relative h-48 sm:h-56 overflow-hidden">
-                <Image
-                  src={course.image}
-                  alt={course.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  priority={index < 3}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <CardTitle className="text-lg sm:text-xl font-bold text-white mb-2">
-                    {course.title}
-                  </CardTitle>
-                </div>
-              </div>
-
-              <CardHeader className="pb-4">
-                <div className="flex flex-wrap items-center justify-between mb-2 text-xs sm:text-sm text-gray-500 gap-2">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span className="whitespace-nowrap">
-                      {course.duration}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span className="whitespace-nowrap">
-                      {course.students} max
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
-                    <span>{course.rating}</span>
+        {isLoading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading popular courses...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+            {[...courses].reverse().slice(0, 6).map((course, index) => (
+              <Card
+                key={course._id || index}
+                className="glass border-white/20 hover:scale-105 transition-all duration-300 overflow-hidden group flex flex-col h-full"
+              >
+                <div className="relative h-48 sm:h-56 overflow-hidden">
+                  <Image
+                    src={course.image || "/placeholder-course.webp"}
+                    alt={course.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    priority={index < 3}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <CardTitle className="text-lg sm:text-xl font-bold text-white mb-2">
+                      {course.title}
+                    </CardTitle>
                   </div>
                 </div>
-              </CardHeader>
 
-              <CardContent className="pt-0 px-4 sm:px-6">
-                <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base">
-                  {course.description}
-                </p>
+                <CardHeader className="pb-4">
+                  <div className="flex flex-wrap items-center justify-between mb-2 text-xs sm:text-sm text-gray-500 gap-2">
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="whitespace-nowrap">
+                        {course.duration}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="whitespace-nowrap">
+                        {course.students} max
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
+                      <span>{course.rating}</span>
+                    </div>
+                  </div>
+                </CardHeader>
 
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <BookingForm preSelectedCourse={course.title}>
-                    <Button className="gradient-yellow-blue text-white hover:scale-105 transition-transform duration-300 w-full sm:w-auto text-sm sm:text-base px-4 py-2">
-                      Enroll Now
-                    </Button>
-                  </BookingForm>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                <CardContent className="pt-0 px-4 sm:px-6 pb-6 flex-grow flex flex-col">
+                  <p className="text-gray-600 mb-6 leading-relaxed text-sm md:text-base line-clamp-3">
+                    {course.description}
+                  </p>
+
+                  <div className="mt-auto w-full">
+                    <BookingForm preSelectedCourse={course.title}>
+                      <Button className="gradient-yellow-blue text-white hover:scale-105 transition-transform duration-300 w-full text-base py-3 sm:h-12 rounded-full font-semibold shadow-md">
+                        Enroll Now
+                      </Button>
+                    </BookingForm>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {!isLoading && courses.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No courses found.</p>
+          </div>
+        )}
 
         <div className="text-center mt-8 sm:mt-12">
           <Link href="/courses">

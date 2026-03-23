@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGO_URI;
 
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGO_URI environment variable in .env.local");
-}
-
 let cached = global.mongoose;
 
 if (!cached) {
@@ -13,6 +9,10 @@ if (!cached) {
 }
 
 export async function connectDB() {
+  if (!MONGODB_URI) {
+    throw new Error("Please define the MONGO_URI environment variable in .env.local");
+  }
+
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {

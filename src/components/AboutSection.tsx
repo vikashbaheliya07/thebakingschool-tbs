@@ -74,12 +74,12 @@ export default function AboutSection() {
               About The Baking School
             </DialogTitle>
           </DialogHeader>
-          
+
           <div className="space-y-8">
             {/* Hero Image */}
             <div className="relative h-64 rounded-lg overflow-hidden">
               <Image
-                src="/Hero3.jpg"
+                src="/Hero3.webp"
                 alt="The Baking School Kitchen"
                 fill
                 sizes="(max-width: 768px) 100vw, 80vw"
@@ -107,7 +107,7 @@ export default function AboutSection() {
                   We aim to create a supportive and inclusive learning environment, promote sustainable practices, and inspire a passion for baking that transcends borders, preparing our graduates to meet the growing demand for baking professionals around the world.
                 </p>
               </div>
-              
+
               <div>
                 <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
                   <Lightbulb className="w-6 h-6 text-yellow-600" />
@@ -167,7 +167,7 @@ export default function AboutSection() {
                   <Phone className="w-8 h-8 text-green-600 mb-2" />
                   <h4 className="font-semibold mb-1">Phone</h4>
                   <p className="text-sm text-gray-600">98763-20800<br />99889-92110</p>
-                  </div>
+                </div>
                 <div className="flex flex-col items-center">
                   <Mail className="w-8 h-8 text-purple-600 mb-2" />
                   <h4 className="font-semibold mb-1">Email</h4>
@@ -175,7 +175,7 @@ export default function AboutSection() {
                 </div>
               </div>
 
-          </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
@@ -183,7 +183,7 @@ export default function AboutSection() {
       {/* Main About Section */}
       <section className="py-16 sm:py-20 lg:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-yellow-50"></div>
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-16">
@@ -194,7 +194,7 @@ export default function AboutSection() {
               </span>
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover the passion and expertise behind India&apos;s premier baking school, 
+              Discover the passion and expertise behind India&apos;s premier baking school,
               where culinary dreams become delicious reality.
             </p>
           </div>
@@ -205,7 +205,7 @@ export default function AboutSection() {
             <div className="relative">
               <div className="relative h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/Hero3.jpg"
+                  src="/Hero3.webp"
                   alt="Professional chef in white uniform working in commercial kitchen"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -231,7 +231,7 @@ export default function AboutSection() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
+                <Button
                   className="gradient-yellow-blue text-white px-6 py-3 rounded-full hover:scale-105 transition-transform duration-300"
                   onClick={handleLearnMore}
                 >

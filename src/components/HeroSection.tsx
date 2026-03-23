@@ -5,14 +5,15 @@ import { Star, Users } from "lucide-react"
 import { BookingForm } from "@/components/BookingForm"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, EffectFade } from "swiper/modules"
+import Image from "next/image"
 import "swiper/css"
 import "swiper/css/effect-fade"
 
 export default function HeroSection() {
   const slides = [
-    { src: "./Hero1.jpg", position: "center 30%" },
-    { src: "./Hero2.jpg", position: "center 40%" },
-    { src: "./Hero3.jpg", position: "center 20%" },
+    { src: "/Hero1.webp", position: "center 30%" },
+    { src: "/Hero2.webp", position: "center 40%" },
+    { src: "/Hero3.webp", position: "center 20%" },
   ]
 
   return (
@@ -20,7 +21,7 @@ export default function HeroSection() {
 
       {/* ===== Hero Section (Carousel + Button + Stats) ===== */}
       <section className="relative min-h-screen flex items-center sm:items-end justify-center overflow-hidden pb-8 sm:pb-16 lg:pb-20">
-        
+
         {/* Background Carousel */}
         <div className="absolute inset-0">
           <Swiper
@@ -33,13 +34,16 @@ export default function HeroSection() {
             {slides.map((img, i) => (
               <SwiperSlide key={i}>
                 <div className="relative h-full w-full">
-                  <div
-                    className="absolute inset-0 bg-cover bg-no-repeat transition-all duration-700"
-                    style={{
-                      backgroundImage: `url(${img.src})`,
-                      backgroundPosition: img.position,
-                    }}
-                  ></div>
+                  <Image
+                    src={img.src}
+                    alt={`The Baking School Hero ${i + 1}`}
+                    fill
+                    priority={i === 0}
+                    sizes="100vw"
+                    className="object-cover transition-all duration-700"
+                    style={{ objectPosition: img.position }}
+                    quality={85}
+                  />
                   <div className="absolute inset-0 bg-black/30 sm:bg-black/20"></div>
                 </div>
               </SwiperSlide>
@@ -80,7 +84,7 @@ export default function HeroSection() {
       </section>
 
       {/* ===== Marquee (Below Carousel, Single & Centered) ===== */}
-      <div className="bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 py-2 sm:py-3 overflow-hidden">
+      <div className="bg-[#00D100] py-2 sm:py-3 overflow-hidden">
         <div className="flex whitespace-nowrap animate-marquee">
           {Array(10).fill("Discover Your Inner Chef").map((text, i) => (
             <p key={i} className="text-white font-bold text-lg sm:text-2xl mx-8">
