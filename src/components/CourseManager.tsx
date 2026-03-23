@@ -176,7 +176,7 @@ export function CourseManager({ courses, onCoursesUpdate }: CourseManagerProps) 
     <>
       <Button onClick={handleCreateCourse} className="gradient-yellow-blue text-white gap-2">
         <Plus className="w-4 h-4" />
-        Create Course
+        Create Course <span className="opacity-10 text-[8px]">v2</span>
       </Button>
 
       {/* Create/Edit Dialog */}
