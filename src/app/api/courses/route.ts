@@ -7,6 +7,8 @@ export async function POST(req: Request): Promise<Response> {
     await connectDB();
     const body: Partial<ICourse> = await req.json();
 
+    console.log("Creating course with body:", JSON.stringify(body, null, 2));
+
     if (
       !body.title ||
       !body.description ||
@@ -18,12 +20,15 @@ export async function POST(req: Request): Promise<Response> {
       !body.level ||
       body.lessons === undefined
     ) {
+      console.error("Missing required fields for course:", body);
       return Response.json({ error: "Missing required fields." }, { status: 400 });
     }
 
     const course = await Course.create(body);
+    console.log("Course created successfully:", course._id);
     return Response.json(course, { status: 201 });
   } catch (error) {
+    console.error("❌ Error creating course:", error);
     const err = error as Error;
     return Response.json({ error: err.message }, { status: 400 });
   }

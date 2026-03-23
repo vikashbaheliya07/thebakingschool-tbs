@@ -7,6 +7,8 @@ export async function POST(req: Request): Promise<Response> {
     await connectDB();
     const body: Partial<ISuccessStory> = await req.json();
 
+    console.log("Creating success story with body:", JSON.stringify(body, null, 2));
+
     if (
       !body.name ||
       !body.role ||
@@ -17,12 +19,15 @@ export async function POST(req: Request): Promise<Response> {
       !body.achievement ||
       !body.course
     ) {
+      console.error("Missing required fields for success story:", body);
       return Response.json({ error: "Missing required fields." }, { status: 400 });
     }
 
     const story = await SuccessStory.create(body);
+    console.log("Success story created successfully:", story._id);
     return Response.json(story, { status: 201 });
   } catch (error) {
+    console.error("❌ Error creating success story:", error);
     const err = error as Error;
     return Response.json({ error: err.message }, { status: 400 });
   }

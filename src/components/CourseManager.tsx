@@ -168,7 +168,8 @@ export function CourseManager({ courses, onCoursesUpdate }: CourseManagerProps) 
       setIsOpen(false)
       resetForm()
     } else {
-      alert("Failed to save course")
+      const errorData = await response?.json()
+      alert(`Failed to save course: ${errorData?.error || "Unknown error"}`)
     }
   }
 

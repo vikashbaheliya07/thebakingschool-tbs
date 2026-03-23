@@ -166,7 +166,8 @@ export function SuccessStoryManager({ stories, onStoriesUpdate }: SuccessStoryMa
       setIsOpen(false)
       resetForm()
     } else {
-      alert("Failed to save success story")
+      const errorData = await response?.json()
+      alert(`Failed to save success story: ${errorData?.error || "Unknown error"}`)
     }
   }
 
