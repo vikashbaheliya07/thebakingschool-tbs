@@ -128,11 +128,11 @@ export function CourseManager({ courses, onCoursesUpdate }: CourseManagerProps) 
         if (data.success) {
           uploadedImageUrl = data.result.secure_url
         } else {
-          alert("Image upload failed. Using existing image URL if present.")
+          alert(`Image upload failed: ${data.error || "Unknown error"}. Using existing image URL if present.`)
         }
       } catch (error) {
         console.error("Upload Error:", error)
-        alert("Image upload error. Using existing image URL if present.")
+        alert(`Image upload error: ${(error as Error).message}. Using existing image URL if present.`)
       }
     }
     
