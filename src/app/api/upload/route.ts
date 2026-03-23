@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 
-// ✅ Configure Cloudinary (ensure these are in your .env.local)
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!.trim(),
-  api_key: process.env.CLOUDINARY_API_KEY!.trim(),
-  api_secret: process.env.CLOUDINARY_API_SECRET!.trim(),
-});
-
 // ✅ POST: Upload image to Cloudinary
 export async function POST(req: Request) {
   try {
+    // Configure Cloudinary at request time (not build time)
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME?.trim() || "",
+      api_key: process.env.CLOUDINARY_API_KEY?.trim() || "",
+      api_secret: process.env.CLOUDINARY_API_SECRET?.trim() || "",
+    });
+
     const formData = await req.formData();
     const file = formData.get("file") as File;
 
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, result });
-  } catch (error: unknown)  {
+  } catch (error: unknown) {
     console.error("Cloudinary upload failed:", error);
     return NextResponse.json(
       { success: false, error: (error as Error).message || "Upload failed" },
