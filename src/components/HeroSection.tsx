@@ -11,9 +11,10 @@ import "swiper/css/effect-fade"
 
 export default function HeroSection() {
   const slides = [
-    { src: "/Hero1.webp", position: "center 30%" },
-    { src: "/Hero2.webp", position: "center 40%" },
-    { src: "/Hero3.webp", position: "center 20%" },
+    { src: "/hero-new-1.webp", position: "center 20%" },
+    { src: "/hero-new-2.webp", position: "center 30%" },
+    { src: "/hero-new-3.webp", position: "center 25%" },
+    { src: "/hero-new-4.webp", position: "center 20%" },
   ]
 
   return (
@@ -86,7 +87,7 @@ export default function HeroSection() {
       {/* ===== Marquee (Below Carousel, Single & Centered) ===== */}
       <div className="bg-[#00D100] py-2 sm:py-3 overflow-hidden">
         <div className="flex whitespace-nowrap animate-marquee">
-          {Array(10).fill("Discover Your Inner Chef").map((text, i) => (
+          {Array(10).fill("THSC Aligned – Wide Range of Diploma Programs in Pastry & Bakery").map((text, i) => (
             <p key={i} className="text-white font-bold text-lg sm:text-2xl mx-8">
               {text}
             </p>

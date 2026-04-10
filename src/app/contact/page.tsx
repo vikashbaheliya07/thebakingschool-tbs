@@ -11,7 +11,7 @@ export default function ContactPage() {
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/Hero2.webp')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('/Hero1.webp')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
         <div className="relative z-10 max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">

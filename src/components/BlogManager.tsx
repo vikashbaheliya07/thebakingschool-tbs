@@ -63,6 +63,9 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null)
   const [isCreating, setIsCreating] = useState(false)
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [isUploading, setIsUploading] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   const [formData, setFormData] = useState({
     title: "",
@@ -86,6 +89,8 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
       image: "",
       featured: false,
     })
+    setImageFile(null)
+    setSaveError(null)
     setIsOpen(true)
   }
 
@@ -101,6 +106,8 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
       image: post.image,
       featured: post.featured,
     })
+    setImageFile(null)
+    setSaveError(null)
     setIsOpen(true)
   }
 
@@ -119,45 +126,84 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
       return
     }
 
+    setIsUploading(true)
+    let uploadedImageUrl = formData.image
+
+    // If an image file was selected, upload it to Cloudinary via /api/upload
+    if (imageFile) {
+      try {
+        const uploadData = new FormData()
+        uploadData.append("file", imageFile)
+        
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadData,
+        })
+        const data = await uploadRes.json()
+        
+        if (data.success) {
+          uploadedImageUrl = data.result.secure_url
+        } else {
+          alert(`Image upload failed: ${data.error || "Unknown error"}. Using existing image URL if present.`)
+        }
+      } catch (error) {
+        console.error("Upload Error:", error)
+        alert(`Image upload error: ${(error as Error).message}. Using existing image URL if present.`)
+      }
+    }
+
     const postData = {
       ...formData,
       date: new Date().toISOString().split("T")[0],
       readTime: `${Math.ceil(formData.content.length / 200)} min read`,
       image:
-        formData.image ||
+        uploadedImageUrl ||
         "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1000&q=80",
     }
 
-    let response
-    if (isCreating) {
-      response = await fetch("/api/blogs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(postData),
-      })
-    } else if (editingPost?._id) {
-      response = await fetch(`/api/blogs/${editingPost._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(postData),
-      })
-    }
+    try {
+      let response
+      if (isCreating) {
+        response = await fetch("/api/blogs", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(postData),
+        })
+      } else if (editingPost?._id) {
+        response = await fetch(`/api/blogs/${editingPost._id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(postData),
+        })
+      }
 
-    if (response?.ok) {
-      const updatedPosts = await (await fetch("/api/blogs", { cache: "no-store" })).json()
-      onPostsUpdate(updatedPosts)
-      setIsOpen(false)
-      setFormData({
-        title: "",
-        excerpt: "",
-        content: "",
-        author: "",
-        category: "",
-        image: "",
-        featured: false,
-      })
-    } else {
-      alert("Failed to save blog post")
+      setIsUploading(false)
+
+      if (response?.ok) {
+        const updatedPosts = await (await fetch("/api/blogs", { cache: "no-store" })).json()
+        onPostsUpdate(updatedPosts)
+        setIsOpen(false)
+        setFormData({
+          title: "",
+          excerpt: "",
+          content: "",
+          author: "",
+          category: "",
+          image: "",
+          featured: false,
+        })
+        setImageFile(null)
+      } else {
+        const errorData = await response?.json().catch(() => ({}))
+        const msg = errorData?.error || response?.statusText || "Server error"
+        setSaveError(msg)
+        alert(`Failed to save blog post: ${msg}`)
+      }
+    } catch (err) {
+      setIsUploading(false)
+      const msg = (err as Error).message
+      setSaveError(msg)
+      alert(`Network error saving blog post: ${msg}`)
     }
   }
 
@@ -179,6 +225,11 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
           </DialogHeader>
 
           <div className="space-y-6">
+            {saveError && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
+                <strong>Error:</strong> {saveError}
+              </div>
+            )}
             {/* form fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -221,13 +272,26 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="image">Image URL</Label>
-                <Input
-                  id="image"
-                  value={formData.image}
-                  onChange={(e) => setFormData((p) => ({ ...p, image: e.target.value }))}
-                  placeholder="https://example.com/image.jpg"
-                />
+                <Label>Image *</Label>
+                <div className="flex gap-4 items-start mt-2">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        setImageFile(e.target.files[0])
+                      }
+                    }}
+                  />
+                  <div className="text-sm text-gray-500 w-full flex items-center">
+                    Or use existing URL
+                  </div>
+                </div>
+                {formData.image && !imageFile && (
+                  <div className="mt-2">
+                    <span className="text-xs text-blue-500 truncate block">{formData.image}</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -264,12 +328,16 @@ export function BlogManager({ posts, onPostsUpdate }: BlogManagerProps) {
             </div>
 
             <div className="flex justify-end gap-3 pt-4 border-t">
-              <Button variant="outline" onClick={() => setIsOpen(false)}>
+              <Button variant="outline" onClick={() => setIsOpen(false)} disabled={isUploading}>
                 Cancel
               </Button>
-              <Button onClick={handleSavePost} className="gradient-yellow-blue text-white">
-                <Save className="w-4 h-4 mr-2" />
-                {isCreating ? "Create Post" : "Save Changes"}
+              <Button onClick={handleSavePost} className="gradient-yellow-blue text-white" disabled={isUploading}>
+                {isUploading ? "Uploading & Saving..." : (
+                  <>
+                    <Save className="w-4 h-4 mr-2" />
+                    {isCreating ? "Create Post" : "Save Changes"}
+                  </>
+                )}
               </Button>
             </div>
           </div>

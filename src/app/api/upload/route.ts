@@ -39,6 +39,8 @@ export async function POST(req: Request) {
     const result = await cloudinary.uploader.upload(dataURI, {
       folder: "baking-school-gallery",
       resource_type: "image",
+      format: "webp",
+      quality: "auto",
     });
 
     console.log("Cloudinary upload successful:", result.secure_url);
