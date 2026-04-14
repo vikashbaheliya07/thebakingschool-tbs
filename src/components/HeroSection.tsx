@@ -14,7 +14,6 @@ export default function HeroSection() {
     { src: "/hero-new-1.webp", position: "center 20%" },
     { src: "/hero-new-2.webp", position: "center 30%" },
     { src: "/hero-new-3.webp", position: "center 25%" },
-    { src: "/hero-new-4.webp", position: "center 20%" },
   ]
 
   return (
